@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["name", "variant", "version", "description", "owners", "upstream", "platforms", "registry", "user", "lifecycle", "security", "tags"],
+  "properties": {
+    "name": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "variant": {"enum": ["base", "runtime", "builder", "framework", "service", "tool"]},
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "framework": {"type": "object", "required": ["name", "base_runtime", "package_manager", "build_command", "output_directory"], "properties": {"name": {"type": "string"}, "base_runtime": {"type": "string"}, "package_manager": {"enum": ["npm", "pnpm", "yarn"]}, "build_command": {"type": "string"}, "output_directory": {"type": "string"}}, "additionalProperties": false},
+    "owners": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "upstream": {"type": "object", "required": ["image", "tag", "digest"], "properties": {"image": {"type": "string"}, "tag": {"type": "string", "not": {"const": "latest"}}, "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}}, "additionalProperties": false},
+    "platforms": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^linux/(amd64|arm64)$"}},
+    "registry": {"type": "object", "required": ["repository"], "properties": {"repository": {"type": "string"}}, "additionalProperties": false},
+    "user": {"type": "object", "required": ["uid", "gid"], "properties": {"uid": {"type": "integer", "minimum": 1}, "gid": {"type": "integer", "minimum": 1}}, "additionalProperties": false},
+    "lifecycle": {"type": "object", "required": ["status", "support_until"], "properties": {"status": {"enum": ["experimental", "supported", "maintenance", "deprecated", "end-of-life"]}, "support_until": {"type": "string", "format": "date"}}, "additionalProperties": false},
+    "security": {"type": "object", "required": ["maximum_severity", "fail_on_fixable", "require_signature", "require_sbom", "require_provenance"], "additionalProperties": false},
+    "tags": {"type": "array", "minItems": 1, "items": {"type": "string", "not": {"const": "latest"}}}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+name: react
+variant: framework
+version: "19"
+description: Opinionated React application builder based on the approved Node.js runtime.
+owners: [platform-engineering]
+framework: {name: react, base_runtime: node:22, package_manager: npm, build_command: npm run build, output_directory: dist}
+upstream:
+  image: docker.io/library/node
+  tag: 22-bookworm-slim
+  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+platforms: [linux/amd64, linux/arm64]
+registry: {repository: ghcr.io/example-org/base-images/framework-react}
+user: {uid: 10001, gid: 10001}
+lifecycle: {status: supported, support_until: "2027-04-30"}
+security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
+tags: ["19", "19-stable"]

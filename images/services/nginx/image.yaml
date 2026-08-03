@@ -1,0 +1,12 @@
+name: nginx
+variant: service
+version: current
+description: Organization-approved Nginx web-server image.
+owners: [platform-engineering]
+upstream: {image: docker.io/library/nginx, tag: stable-bookworm, digest: sha256:REPLACE_WITH_VERIFIED_DIGEST}
+platforms: [linux/amd64, linux/arm64]
+registry: {repository: ghcr.io/example-org/base-images/nginx}
+user: {uid: 10001, gid: 10001}
+lifecycle: {status: supported, support_until: "2027-12-31"}
+security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
+tags: [stable]

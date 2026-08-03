@@ -1,0 +1,12 @@
+--- discovered base images ---
+images/base/debian/11/image.yaml
+images/base/debian/12/image.yaml
+images/base/debian/13/image.yaml
+images/base/ubuntu/20.04/image.yaml
+images/base/ubuntu/22.04/image.yaml
+images/base/ubuntu/24.04/image.yaml
+images/base/ubuntu/26.04/image.yaml
+--- dockerfile validation ---
+Dockerfile policy is valid.
+--- YAML and JSON parsing ---
+Static checks passed

@@ -1,0 +1,16 @@
+name: Validate container images
+
+on:
+  pull_request:
+    paths: ["images/**", "policies/**", "schemas/**", "scripts/**", ".github/workflows/**", "Makefile"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Validate metadata and Dockerfiles
+        run: make validate

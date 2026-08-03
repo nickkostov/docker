@@ -1,0 +1,17 @@
+--- discovered images ---
+images/base/debian/11/image.yaml
+images/base/debian/12/image.yaml
+images/base/debian/13/image.yaml
+images/runtimes/java/21/image.yaml
+images/runtimes/node/22/image.yaml
+images/runtimes/python/3.13/image.yaml
+images/services/nginx/image.yaml
+--- dockerfile validation ---
+Dockerfile policy is valid.
+--- metadata validation ---
+ERROR: images/base/debian/11/image.yaml must contain a verified sha256 digest
+ERROR: images/base/debian/13/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/java/21/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/node/22/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/python/3.13/image.yaml must contain a verified sha256 digest
+ERROR: images/services/nginx/image.yaml must contain a verified sha256 digest

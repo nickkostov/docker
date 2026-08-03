@@ -1,0 +1,28 @@
+Dockerfile policy is valid.
+final static checks passed
+--- status ---
+ M README.md
+ M docs/README.md
+ M runtime/README.md
+?? .github/CODEOWNERS
+?? .github/dependabot.yml
+?? .github/workflows/pull-request.yml
+?? .github/workflows/use-approved-base-image.yml
+?? AGENTS.md
+?? CONTRIBUTING.md
+?? Makefile
+?? SECURITY.md
+?? catalog/
+?? cmd-log/
+?? codex-changelog/
+?? docs/architecture.md
+?? docs/consumer-guide.md
+?? docs/context-cache.md
+?? docs/emergency-rebuild.md
+?? docs/onboarding.md
+?? docs/security-model.md
+?? docs/versioning.md
+?? images/
+?? policies/
+?? schemas/
+?? scripts/

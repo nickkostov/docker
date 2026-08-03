@@ -1,0 +1,41 @@
+schema: ../schemas/image.schema.json
+images:
+  - name: debian
+    path: images/base/debian/11
+    status: maintenance
+  - name: debian
+    path: images/base/debian/12
+    status: supported
+  - name: debian
+    path: images/base/debian/13
+    status: supported
+  - name: ubuntu
+    path: images/base/ubuntu/20.04
+    status: maintenance
+  - name: ubuntu
+    path: images/base/ubuntu/22.04
+    status: supported
+  - name: ubuntu
+    path: images/base/ubuntu/24.04
+    status: supported
+  - name: ubuntu
+    path: images/base/ubuntu/26.04
+    status: supported
+  - name: java
+    path: images/runtimes/java/21
+    status: supported
+  - name: node
+    path: images/runtimes/node/22
+    status: supported
+  - name: python
+    path: images/runtimes/python/3.13
+    status: supported
+  - name: nginx
+    path: images/services/nginx
+    status: supported
+  - name: react
+    path: images/frameworks/react
+    status: supported
+  - name: vite
+    path: images/frameworks/vite
+    status: supported
