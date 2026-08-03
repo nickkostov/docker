@@ -25,3 +25,4 @@ jobs:
           cat /etc/os-release
           echo "Kernel:"
           uname -a
+          
