@@ -11,9 +11,18 @@ LABEL org.opencontainers.image.title="Organization GitHub Actions Runner" org.op
 ENV DEBIAN_FRONTEND=noninteractive
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl git jq sudo tar gzip unzip && rm -rf /var/lib/apt/lists/*
-RUN getent group 1000 >/dev/null || groupadd --gid 1000 runner \
-  && useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash runner \
-  && usermod -aG sudo runner
+RUN set -eux; \
+  if getent passwd 1000 >/dev/null; then \
+    runner_user="$(getent passwd 1000 | cut -d: -f1)"; \
+  else \
+    getent group 1000 >/dev/null || groupadd --gid 1000 runner; \
+    useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash runner; \
+    runner_user=runner; \
+  fi; \
+  usermod --home /home/runner "$runner_user"; \
+  usermod -aG sudo "$runner_user"; \
+  mkdir -p /home/runner; \
+  chown 1000:1000 /home/runner
 WORKDIR /home/runner
 RUN case "${TARGETARCH}" in amd64) runner_arch="x64" ;; arm64) runner_arch="arm64" ;; *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;; esac \
   && curl -fsSL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-${runner_arch}-${RUNNER_VERSION}.tar.gz" -o runner.tar.gz \

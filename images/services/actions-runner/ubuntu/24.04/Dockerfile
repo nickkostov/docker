@@ -31,9 +31,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
   && rm -rf /var/lib/apt/lists/*
 
-RUN getent group 1000 >/dev/null || groupadd --gid 1000 runner \
-  && useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash runner \
-  && usermod -aG sudo runner
+RUN set -eux; \
+  if getent passwd 1000 >/dev/null; then \
+    runner_user="$(getent passwd 1000 | cut -d: -f1)"; \
+  else \
+    getent group 1000 >/dev/null || groupadd --gid 1000 runner; \
+    useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash runner; \
+    runner_user=runner; \
+  fi; \
+  usermod --home /home/runner "$runner_user"; \
+  usermod -aG sudo "$runner_user"; \
+  mkdir -p /home/runner; \
+  chown 1000:1000 /home/runner
 
 WORKDIR /home/runner
 
