@@ -8,7 +8,8 @@ upstream:
   tag: 21-jre
   digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
 platforms: [linux/amd64, linux/arm64]
-registry: {repository: ghcr.io/example-org/base-images/java}
+registry:
+  repository: ghcr.io/example-org/base-images/java
 user: {uid: 10001, gid: 10001}
 lifecycle: {status: supported, support_until: "2028-09-30"}
 security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}

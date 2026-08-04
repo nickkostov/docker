@@ -39,3 +39,27 @@ images:
   - name: vite
     path: images/frameworks/vite
     status: supported
+  - name: alpine
+    path: images/base/alpine/3.24
+    status: supported
+  - name: alpine
+    path: images/base/alpine/3.23
+    status: supported
+  - name: alpine
+    path: images/base/alpine/3.22
+    status: supported
+  - name: alpine
+    path: images/base/alpine/3.21
+    status: maintenance
+  - name: busybox
+    path: images/base/busybox/1.38.0
+    status: experimental
+  - name: busybox
+    path: images/base/busybox/1.37.0
+    status: supported
+  - name: busybox
+    path: images/base/busybox/1.36.1
+    status: maintenance
+  - name: busybox
+    path: images/base/busybox/1.36.0
+    status: maintenance
