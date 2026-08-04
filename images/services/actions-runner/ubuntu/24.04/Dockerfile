@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
   && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd --gid 1000 runner \
+RUN getent group 1000 >/dev/null || groupadd --gid 1000 runner \
   && useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash runner \
   && usermod -aG sudo runner
 
@@ -49,9 +49,9 @@ RUN case "${TARGETARCH}" in \
   && rm runner.tar.gz \
   && mv run.sh runner-entrypoint.sh \
   && ./bin/installdependencies.sh \
-  && chown -R runner:runner /home/runner
+  && chown -R 1000:1000 /home/runner
 
-COPY --chown=runner:runner run.sh /home/runner/run.sh
+COPY --chown=1000:1000 run.sh /home/runner/run.sh
 RUN chmod +x /home/runner/run.sh
 
 USER 1000:1000
