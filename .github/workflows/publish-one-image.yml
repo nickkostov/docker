@@ -1,4 +1,4 @@
-name: Publish one resolved image
+name: Publish Image
 
 on:
   workflow_call:

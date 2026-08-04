@@ -7,13 +7,13 @@ on:
         description: Image type
         required: true
         type: choice
-        options: [base, service]
+        options: [base]
         default: base
       os:
         description: Operating system, runtime, or framework family
         required: true
         type: choice
-        options: [actions-runner, alpine, busybox, debian, ubuntu, nginx]
+        options: [alpine, busybox, debian, ubuntu]
         default: ubuntu
       version:
         description: Version matching the selected image family
@@ -67,10 +67,6 @@ jobs:
             base/ubuntu/22.04) metadata=images/base/ubuntu/22.04/image.yaml ;;
             base/ubuntu/24.04) metadata=images/base/ubuntu/24.04/image.yaml ;;
             base/ubuntu/26.04) metadata=images/base/ubuntu/26.04/image.yaml ;;
-            service/actions-runner/22.04|service/actions-runner/2.329.0-ubuntu22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml; publish_version=2.329.0-ubuntu22.04 ;;
-            service/actions-runner/24.04|service/actions-runner/2.329.0-ubuntu24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml; publish_version=2.329.0-ubuntu24.04 ;;
-            service/actions-runner/26.04|service/actions-runner/2.329.0-ubuntu26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml; publish_version=2.329.0-ubuntu26.04 ;;
-            service/nginx/current) metadata=images/services/nginx/image.yaml ;;
             *) echo "Unsupported image selection: $IMAGE_TYPE/$OS/$VERSION" >&2; exit 1 ;;
           esac
 
@@ -95,19 +91,6 @@ jobs:
 
   publish-base:
     if: needs.prepare.outputs.image_type == 'base'
-    needs: prepare
-    uses: ./.github/workflows/publish-one-image.yml
-    with:
-      directory: ${{ needs.prepare.outputs.directory }}
-      repository: ${{ needs.prepare.outputs.repository }}
-      upstream: ${{ needs.prepare.outputs.upstream }}
-      version: ${{ needs.prepare.outputs.version }}
-      tag: ${{ needs.prepare.outputs.tag }}
-      build_date: ${{ needs.prepare.outputs.build_date }}
-    secrets: inherit
-
-  publish-service:
-    if: needs.prepare.outputs.image_type == 'service'
     needs: prepare
     uses: ./.github/workflows/publish-one-image.yml
     with:

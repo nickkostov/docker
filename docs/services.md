@@ -28,11 +28,11 @@ For a frontend application, the usual flow is:
 React/Vite framework builder -> dist/ assets -> Nginx service image
 ```
 
-The current Nginx service is published through the **Publish base image**
-workflow because it is the only service currently in the catalog. When the
-service catalog grows, it can move to a dedicated **Publish service image**
-workflow without changing the image definitions.
+The current Nginx service is published through the dedicated **Publish service
+image** workflow. Additional web servers, databases, brokers, proxies, and
+observability services can be added there without cluttering the base-image
+workflow.
 
-The GitHub Actions runner is also published by the base/service workflow. It
+The GitHub Actions runner is also published by the dedicated service workflow. It
 is available on Ubuntu 22.04, 24.04, and 26.04 and starts the runner through
 `run.sh`; registration secrets are supplied only at runtime.

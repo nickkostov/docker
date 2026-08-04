@@ -1,4 +1,4 @@
-name: Publish runtime image
+name: Publish Runtime Image
 
 on:
   workflow_dispatch:

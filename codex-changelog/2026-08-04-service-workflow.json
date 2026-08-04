@@ -1,0 +1,5 @@
+{
+  "prompt": "Separate service image publishing because the base-image workflow is becoming cluttered.",
+  "response": "Added a dedicated Publish service image workflow with dropdowns for Actions Runner and Nginx. Actions Runner supports Ubuntu 22.04, 24.04, and 26.04 using the supplied verified organization-base digests. Service publishing creates both an immutable timestamped tag and a moving service-version tag. Removed the stale service branch from Publish base image and updated publishing and service documentation. Workflow YAML, Dockerfile policy, and diff validation pass. Nginx remains gated until its placeholder upstream digest is replaced.",
+  "sensitive_data": "[REDACTED]"
+}

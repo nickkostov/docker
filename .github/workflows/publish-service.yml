@@ -1,19 +1,20 @@
-name: Publish Framework Image
+name: Publish Service Image
 
 on:
   workflow_dispatch:
     inputs:
-      framework:
-        description: Framework
+      service:
+        description: Service
         required: true
         type: choice
-        options: [react, vite]
-        default: vite
+        options: [actions-runner, nginx]
+        default: actions-runner
       version:
-        description: Framework version
+        description: Service or OS variant version
         required: true
-        type: string
-        default: "7"
+        type: choice
+        options: ["22.04", "24.04", "26.04", current]
+        default: "24.04"
 
 permissions:
   contents: read
@@ -30,40 +31,45 @@ jobs:
       upstream: ${{ steps.image.outputs.upstream }}
       version: ${{ steps.image.outputs.version }}
       tag: ${{ steps.image.outputs.tag }}
+      moving_tag: ${{ steps.image.outputs.moving_tag }}
       build_date: ${{ steps.image.outputs.build_date }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Resolve framework
+      - name: Resolve service
         id: image
         env:
-          FRAMEWORK: ${{ inputs.framework }}
+          SERVICE: ${{ inputs.service }}
           VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          case "$FRAMEWORK/$VERSION" in
-            react/19) metadata=images/frameworks/react/image.yaml ;;
-            vite/7) metadata=images/frameworks/vite/image.yaml ;;
-            *) echo "Unsupported framework/version: $FRAMEWORK/$VERSION" >&2; exit 1 ;;
+          publish_version="$VERSION"
+          case "$SERVICE/$VERSION" in
+            actions-runner/22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml; publish_version=2.329.0-ubuntu22.04 ;;
+            actions-runner/24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml; publish_version=2.329.0-ubuntu24.04 ;;
+            actions-runner/26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml; publish_version=2.329.0-ubuntu26.04 ;;
+            nginx/current) metadata=images/services/nginx/image.yaml ;;
+            *) echo "Unsupported service/version: $SERVICE/$VERSION" >&2; exit 1 ;;
           esac
           directory=${metadata%/image.yaml}
           repository=$(awk '$1 == "repository:" {print $2; exit}' "$metadata")
           upstream_image=$(awk '$1 == "image:" {print $2; exit}' "$metadata")
           upstream_digest=$(awk '$1 == "digest:" {print $2; exit}' "$metadata")
           test -n "$repository" -a -n "$upstream_image" -a -n "$upstream_digest"
-          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Framework metadata contains no verified upstream digest" >&2; exit 1; }
+          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Service metadata contains no verified digest" >&2; exit 1; }
           timestamp=$(date -u +%Y%m%d-%H%M%S)
           build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           {
             echo "directory=$directory"
             echo "repository=$repository"
             echo "upstream=$upstream_image@$upstream_digest"
-            echo "version=$VERSION"
-            echo "tag=$VERSION-$timestamp"
-            echo "build_date=$build_date"
+          echo "version=$publish_version"
+          echo "tag=$publish_version-$timestamp"
+          echo "moving_tag=$publish_version"
+          echo "build_date=$build_date"
           } >> "$GITHUB_OUTPUT"
 
-  publish-framework:
+  publish-service:
     needs: prepare
     uses: ./.github/workflows/publish-one-image.yml
     with:
@@ -72,5 +78,6 @@ jobs:
       upstream: ${{ needs.prepare.outputs.upstream }}
       version: ${{ needs.prepare.outputs.version }}
       tag: ${{ needs.prepare.outputs.tag }}
+      moving_tag: ${{ needs.prepare.outputs.moving_tag }}
       build_date: ${{ needs.prepare.outputs.build_date }}
     secrets: inherit
