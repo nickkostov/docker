@@ -10,7 +10,7 @@ while IFS= read -r metadata; do
       errors=$((errors + 1))
     fi
   done
-  if ! rg -q '^  digest: sha256:[0-9a-f]{64}$' "$metadata"; then
+  if ! rg -q 'digest:[[:space:]]*sha256:[0-9a-f]{64}' "$metadata"; then
     echo "ERROR: $metadata must contain a verified sha256 digest" >&2
     errors=$((errors + 1))
   fi

@@ -1,0 +1,16 @@
+name: busybox
+variant: base
+version: "1.38.0"
+description: Organization-approved BusyBox 1.38.0 base image.
+owners: [platform-engineering]
+upstream:
+  image: docker.io/library/busybox
+  tag: "1.38.0"
+  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+platforms: [linux/amd64, linux/arm64]
+registry:
+  repository: ghcr.io/example-org/base-images/busybox
+user: {uid: 10001, gid: 10001}
+lifecycle: {status: experimental, support_until: "2026-12-31"}
+security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
+tags: ["1.38.0", "1.38"]

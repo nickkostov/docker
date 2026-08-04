@@ -9,6 +9,14 @@
 | Ubuntu | base | 22.04 (Jammy Jellyfish) | Supported |
 | Ubuntu | base | 24.04 (Noble Numbat) | Supported |
 | Ubuntu | base | 26.04 (Resolute Raccoon) | Supported |
+| Alpine | base | 3.24 | Supported |
+| Alpine | base | 3.23 | Supported |
+| Alpine | base | 3.22 | Supported |
+| Alpine | base | 3.21 | Maintenance |
+| BusyBox | base | 1.38.0 | Experimental |
+| BusyBox | base | 1.37.0 | Supported |
+| BusyBox | base | 1.36.1 | Maintenance |
+| BusyBox | base | 1.36.0 | Maintenance |
 | Java | runtime | 21 | Supported |
 | Node.js | runtime | 22 | Supported |
 | Python | runtime | 3.13 | Supported |

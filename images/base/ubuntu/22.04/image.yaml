@@ -6,9 +6,10 @@ owners: [platform-engineering]
 upstream:
   image: docker.io/library/ubuntu
   tag: "22.04"
-  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+  digest: sha256:3b06811b2afd352be909dd088a004166d665dc76d38b13eada33522a9d915c6f
 platforms: [linux/amd64, linux/arm64]
-registry: {repository: ghcr.io/example-org/base-images/ubuntu}
+registry:
+  repository: ghcr.io/example-org/base-images/ubuntu
 user: {uid: 10001, gid: 10001}
 lifecycle: {status: supported, support_until: "2027-05-31"}
 security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}

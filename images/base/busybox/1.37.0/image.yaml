@@ -1,16 +1,16 @@
-name: nginx
-variant: service
-version: current
-description: Organization-approved Nginx web-server image.
+name: busybox
+variant: base
+version: "1.37.0"
+description: Organization-approved BusyBox 1.37.0 base image.
 owners: [platform-engineering]
 upstream:
-  image: docker.io/library/nginx
-  tag: stable-bookworm
+  image: docker.io/library/busybox
+  tag: "1.37.0"
   digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
 platforms: [linux/amd64, linux/arm64]
 registry:
-  repository: ghcr.io/example-org/base-images/nginx
+  repository: ghcr.io/example-org/base-images/busybox
 user: {uid: 10001, gid: 10001}
 lifecycle: {status: supported, support_until: "2027-12-31"}
 security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: [stable]
+tags: ["1.37.0", "1.37"]

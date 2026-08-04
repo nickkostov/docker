@@ -1,5 +1,5 @@
 {
-  "prompt": "Implement the attached organization-wide Docker base image management brief; support Debian 11 bullseye, Debian 12 bookworm, Debian 13 trixie, Ubuntu 20.04 through 26.04 major LTS releases, opinionated framework images, and GitHub Actions publishing.",
-  "response": "Added Debian, Ubuntu, React, and Vite catalog entries plus a manually triggered GHCR publication workflow that builds multi-architecture images with SBOM and provenance attestations. Framework images are opinionated Node.js 22/npm builders with npm run build and dist output, not production runtimes. Verified upstream digests remain release gates.",
+  "prompt": "Implement the attached organization-wide Docker base image management brief; support Debian 11 bullseye, Debian 12 bookworm, Debian 13 trixie, Ubuntu 20.04 through 26.04 major LTS releases, opinionated framework images, GitHub Actions publishing, and the latest four Alpine and BusyBox versions.",
+  "response": "Added Debian, Ubuntu, React, Vite, Alpine 3.21-3.24, and BusyBox 1.36.0-1.38.0 catalog entries plus Dockerfiles, lifecycle metadata, support-matrix entries, and GHCR publication workflow. BusyBox 1.38.0 is experimental because upstream identifies it as unstable. Verified upstream digests remain release gates.",
   "sensitive_data": "[REDACTED]"
 }

@@ -2,6 +2,7 @@ allowed:
   - docker.io/library/debian
   - docker.io/library/ubuntu
   - docker.io/library/alpine
+  - docker.io/library/busybox
   - docker.io/library/nginx
   - docker.io/library/node
   - docker.io/library/python
