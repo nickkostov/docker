@@ -7,25 +7,25 @@ on:
         description: Runtime family
         required: true
         type: choice
-        options: [java, node, python]
+        options: [node]
         default: node
       version:
-        description: Runtime version
+        description: Node.js version
         required: true
-        type: string
+        type: choice
+        options: ["22", "24"]
         default: "22"
       base_os:
-        description: Required organization OS base
+        description: Organization OS base
         required: true
         type: choice
-        options: [debian]
-        default: debian
+        options: [alpine, ubuntu]
+        default: alpine
       base_version:
-        description: Required organization OS version
+        description: Organization OS version
         required: true
-        type: choice
-        options: ["13"]
-        default: "13"
+        type: string
+        default: "3.21"
 
 permissions:
   contents: read
@@ -43,11 +43,12 @@ jobs:
       base_image: ${{ steps.image.outputs.base_image }}
       version: ${{ steps.image.outputs.version }}
       tag: ${{ steps.image.outputs.tag }}
+      moving_tag: ${{ steps.image.outputs.moving_tag }}
       build_date: ${{ steps.image.outputs.build_date }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Resolve runtime and OS dependency
+      - name: Resolve runtime matrix entry
         id: image
         env:
           RUNTIME: ${{ inputs.runtime }}
@@ -56,30 +57,24 @@ jobs:
           BASE_VERSION: ${{ inputs.base_version }}
         run: |
           set -euo pipefail
-          case "$RUNTIME/$VERSION/$BASE_OS/$BASE_VERSION" in
-            java/21/debian/13) metadata=images/runtimes/java/21/image.yaml ;;
-            node/22/debian/13) metadata=images/runtimes/node/22/image.yaml ;;
-            python/3.13/debian/13) metadata=images/runtimes/python/3.13/image.yaml ;;
-            *) echo "Unsupported runtime/OS dependency: $RUNTIME/$VERSION/$BASE_OS/$BASE_VERSION" >&2; exit 1 ;;
-          esac
-          directory=${metadata%/image.yaml}
-          repository=$(awk '$1 == "repository:" {n++; if (n == 2) {print $2; exit}}' "$metadata")
-          upstream_image=$(awk '$1 == "image:" {print $2; exit}' "$metadata")
-          upstream_digest=$(awk '$1 == "digest:" {n++; if (n == 2) {print $2; exit}}' "$metadata")
-          base_repository=$(awk '$1 == "repository:" {print $2; exit}' "$metadata")
-          base_digest=$(awk '$1 == "digest:" {print $2; exit}' "$metadata")
-          test -n "$repository" -a -n "$upstream_image" -a -n "$upstream_digest" -a -n "$base_repository" -a -n "$base_digest"
-          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Runtime metadata contains no verified upstream digest" >&2; exit 1; }
-          [[ "$base_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Runtime metadata contains no published OS digest" >&2; exit 1; }
+          values=$(ruby -ryaml -e '
+            data = YAML.load_file("images/runtimes/node/versions.yaml")
+            entry = data.fetch("runtime_versions").fetch(ENV.fetch("VERSION")).fetch(ENV.fetch("BASE_OS")).fetch(ENV.fetch("BASE_VERSION"))
+            puts [entry.fetch("base_repository"), entry.fetch("base_digest"), entry.fetch("upstream_image"), entry.fetch("upstream_tag"), entry.fetch("upstream_digest")].join("\t")
+          ')
+          IFS=$'\t' read -r base_repository base_digest upstream_image upstream_tag upstream_digest <<< "$values"
+          [[ "$base_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "OS base digest is not verified" >&2; exit 1; }
+          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Node upstream digest is not verified" >&2; exit 1; }
           timestamp=$(date -u +%Y%m%d-%H%M%S)
           build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           {
-            echo "directory=$directory"
-            echo "repository=$repository"
+            echo "directory=images/runtimes/node"
+            echo "repository=ghcr.io/nickkostov/base-images/node"
             echo "upstream=$upstream_image@$upstream_digest"
             echo "base_image=$base_repository@$base_digest"
             echo "version=$VERSION"
-            echo "tag=$VERSION-$timestamp"
+            echo "tag=$VERSION-$BASE_OS$BASE_VERSION-$timestamp"
+            echo "moving_tag=$VERSION-$BASE_OS$BASE_VERSION"
             echo "build_date=$build_date"
           } >> "$GITHUB_OUTPUT"
       - name: Log in to GHCR to verify OS dependency
@@ -103,5 +98,6 @@ jobs:
       base_image: ${{ needs.prepare.outputs.base_image }}
       version: ${{ needs.prepare.outputs.version }}
       tag: ${{ needs.prepare.outputs.tag }}
+      moving_tag: ${{ needs.prepare.outputs.moving_tag }}
       build_date: ${{ needs.prepare.outputs.build_date }}
     secrets: inherit

@@ -10,6 +10,7 @@ on:
       tag: {required: true, type: string}
       build_date: {required: true, type: string}
       base_image: {required: false, type: string, default: ""}
+      moving_tag: {required: false, type: string, default: ""}
 
 permissions:
   contents: read
@@ -40,7 +41,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             ${{ inputs.repository }}:${{ inputs.tag }}
-            ${{ inputs.repository }}:${{ inputs.version }}
+            ${{ inputs.repository }}:${{ inputs.moving_tag || inputs.version }}
           build-args: |
             UPSTREAM_IMAGE=${{ inputs.upstream }}
             BASE_IMAGE=${{ inputs.base_image }}

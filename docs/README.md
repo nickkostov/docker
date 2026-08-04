@@ -7,5 +7,6 @@
 - [Consumer guide](consumer-guide.md)
 - [Framework images](frameworks.md)
 - [Service images](services.md)
+- [Runtime matrix](runtime-matrix.md)
 - [Publishing with GitHub Actions](publishing.md)
 - [Emergency rebuild](emergency-rebuild.md)

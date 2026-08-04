@@ -1,0 +1,82 @@
+name: node
+variant: runtime
+description: Supported Node.js runtime and organization OS matrix.
+runtime_versions:
+  "22":
+    alpine:
+      "3.21":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-alpine3.21
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "3.22":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-alpine3.22
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "3.23":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-alpine3.23
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+    ubuntu:
+      "22.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "24.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "26.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 22-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+  "24":
+    alpine:
+      "3.21":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-alpine3.21
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "3.22":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-alpine3.22
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "3.23":
+        base_repository: ghcr.io/nickkostov/base-images/alpine
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-alpine3.23
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+    ubuntu:
+      "22.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "24.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+      "26.04":
+        base_repository: ghcr.io/nickkostov/base-images/ubuntu
+        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+        upstream_image: docker.io/library/node
+        upstream_tag: 24-bookworm-slim
+        upstream_digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
