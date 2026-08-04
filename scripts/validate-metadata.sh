@@ -5,16 +5,16 @@ errors=0
 while IFS= read -r metadata; do
   image_dir=${metadata%/image.yaml}
   for required in name variant version upstream registry user lifecycle security tags; do
-    if ! rg -q "^${required}:" "$metadata"; then
+    if ! grep -Eq "^${required}:" "$metadata"; then
       echo "ERROR: $metadata is missing top-level key: $required" >&2
       errors=$((errors + 1))
     fi
   done
-  if ! rg -q 'digest:[[:space:]]*sha256:[0-9a-f]{64}' "$metadata"; then
+  if ! grep -Eq 'digest:[[:space:]]*sha256:[0-9a-f]{64}' "$metadata"; then
     echo "ERROR: $metadata must contain a verified sha256 digest" >&2
     errors=$((errors + 1))
   fi
-  if rg -q '(^|:) latest($|[[:space:]])' "$metadata"; then
+  if grep -Eq '(^|:) latest($|[[:space:]])' "$metadata"; then
     echo "ERROR: $metadata uses forbidden latest tag" >&2
     errors=$((errors + 1))
   fi
