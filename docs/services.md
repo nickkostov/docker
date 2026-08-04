@@ -34,5 +34,5 @@ service catalog grows, it can move to a dedicated **Publish service image**
 workflow without changing the image definitions.
 
 The GitHub Actions runner is also published by the base/service workflow. It
-is based on Ubuntu 24.04 and starts the runner through `run.sh`; registration
-secrets are supplied only at runtime.
+is available on Ubuntu 22.04, 24.04, and 26.04 and starts the runner through
+`run.sh`; registration secrets are supplied only at runtime.

@@ -34,7 +34,13 @@ images:
     path: images/services/nginx
     status: supported
   - name: actions-runner
+    path: images/services/actions-runner/ubuntu/22.04
+    status: supported
+  - name: actions-runner
     path: images/services/actions-runner/ubuntu/24.04
+    status: supported
+  - name: actions-runner
+    path: images/services/actions-runner/ubuntu/26.04
     status: supported
   - name: react
     path: images/frameworks/react
