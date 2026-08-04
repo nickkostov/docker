@@ -1,0 +1,107 @@
+name: Publish runtime image
+
+on:
+  workflow_dispatch:
+    inputs:
+      runtime:
+        description: Runtime family
+        required: true
+        type: choice
+        options: [java, node, python]
+        default: node
+      version:
+        description: Runtime version
+        required: true
+        type: string
+        default: "22"
+      base_os:
+        description: Required organization OS base
+        required: true
+        type: choice
+        options: [debian]
+        default: debian
+      base_version:
+        description: Required organization OS version
+        required: true
+        type: choice
+        options: ["13"]
+        default: "13"
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      directory: ${{ steps.image.outputs.directory }}
+      repository: ${{ steps.image.outputs.repository }}
+      upstream: ${{ steps.image.outputs.upstream }}
+      base_image: ${{ steps.image.outputs.base_image }}
+      version: ${{ steps.image.outputs.version }}
+      tag: ${{ steps.image.outputs.tag }}
+      build_date: ${{ steps.image.outputs.build_date }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve runtime and OS dependency
+        id: image
+        env:
+          RUNTIME: ${{ inputs.runtime }}
+          VERSION: ${{ inputs.version }}
+          BASE_OS: ${{ inputs.base_os }}
+          BASE_VERSION: ${{ inputs.base_version }}
+        run: |
+          set -euo pipefail
+          case "$RUNTIME/$VERSION/$BASE_OS/$BASE_VERSION" in
+            java/21/debian/13) metadata=images/runtimes/java/21/image.yaml ;;
+            node/22/debian/13) metadata=images/runtimes/node/22/image.yaml ;;
+            python/3.13/debian/13) metadata=images/runtimes/python/3.13/image.yaml ;;
+            *) echo "Unsupported runtime/OS dependency: $RUNTIME/$VERSION/$BASE_OS/$BASE_VERSION" >&2; exit 1 ;;
+          esac
+          directory=${metadata%/image.yaml}
+          repository=$(awk '$1 == "repository:" {n++; if (n == 2) {print $2; exit}}' "$metadata")
+          upstream_image=$(awk '$1 == "image:" {print $2; exit}' "$metadata")
+          upstream_digest=$(awk '$1 == "digest:" {n++; if (n == 2) {print $2; exit}}' "$metadata")
+          base_repository=$(awk '$1 == "repository:" {print $2; exit}' "$metadata")
+          base_digest=$(awk '$1 == "digest:" {print $2; exit}' "$metadata")
+          test -n "$repository" -a -n "$upstream_image" -a -n "$upstream_digest" -a -n "$base_repository" -a -n "$base_digest"
+          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Runtime metadata contains no verified upstream digest" >&2; exit 1; }
+          [[ "$base_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Runtime metadata contains no published OS digest" >&2; exit 1; }
+          timestamp=$(date -u +%Y%m%d-%H%M%S)
+          build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          {
+            echo "directory=$directory"
+            echo "repository=$repository"
+            echo "upstream=$upstream_image@$upstream_digest"
+            echo "base_image=$base_repository@$base_digest"
+            echo "version=$VERSION"
+            echo "tag=$VERSION-$timestamp"
+            echo "build_date=$build_date"
+          } >> "$GITHUB_OUTPUT"
+      - name: Log in to GHCR to verify OS dependency
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1 # v3.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify OS image exists
+        env:
+          BASE_IMAGE: ${{ steps.image.outputs.base_image }}
+        run: docker buildx imagetools inspect "$BASE_IMAGE"
+
+  publish-runtime:
+    needs: prepare
+    uses: ./.github/workflows/publish-one-image.yml
+    with:
+      directory: ${{ needs.prepare.outputs.directory }}
+      repository: ${{ needs.prepare.outputs.repository }}
+      upstream: ${{ needs.prepare.outputs.upstream }}
+      base_image: ${{ needs.prepare.outputs.base_image }}
+      version: ${{ needs.prepare.outputs.version }}
+      tag: ${{ needs.prepare.outputs.tag }}
+      build_date: ${{ needs.prepare.outputs.build_date }}
+    secrets: inherit

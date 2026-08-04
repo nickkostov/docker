@@ -3,6 +3,10 @@ variant: runtime
 version: "22"
 description: Organization-approved Node.js 22 runtime image.
 owners: [platform-engineering]
+base:
+  repository: ghcr.io/nickkostov/base-images/debian
+  tag: "13"
+  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
 upstream:
   image: docker.io/library/node
   tag: 22-bookworm-slim

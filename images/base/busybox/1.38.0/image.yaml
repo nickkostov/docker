@@ -6,7 +6,7 @@ owners: [platform-engineering]
 upstream:
   image: docker.io/library/busybox
   tag: "1.38.0"
-  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+  digest: sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616
 platforms: [linux/amd64, linux/arm64]
 registry:
   repository: ghcr.io/nickkostov/base-images/busybox

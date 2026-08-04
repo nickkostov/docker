@@ -6,7 +6,7 @@ owners: [platform-engineering]
 upstream:
   image: docker.io/library/alpine
   tag: "3.21"
-  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+  digest: sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
 platforms: [linux/amd64, linux/arm64]
 registry:
   repository: ghcr.io/nickkostov/base-images/alpine

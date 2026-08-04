@@ -1,0 +1,53 @@
+name: Publish one resolved image
+
+on:
+  workflow_call:
+    inputs:
+      directory: {required: true, type: string}
+      repository: {required: true, type: string}
+      upstream: {required: true, type: string}
+      version: {required: true, type: string}
+      tag: {required: true, type: string}
+      build_date: {required: true, type: string}
+      base_image: {required: false, type: string, default: ""}
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+      - name: Log in to GHCR
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1 # v3.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: ${{ inputs.directory }}
+          file: ${{ inputs.directory }}/Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ inputs.repository }}:${{ inputs.tag }}
+            ${{ inputs.repository }}:${{ inputs.version }}
+          build-args: |
+            UPSTREAM_IMAGE=${{ inputs.upstream }}
+            BASE_IMAGE=${{ inputs.base_image }}
+            VERSION=${{ inputs.version }}
+            BUILD_DATE=${{ inputs.build_date }}
+            REVISION=${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+          sbom: true
+          provenance: mode=max

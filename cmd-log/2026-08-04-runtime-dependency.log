@@ -1,0 +1,20 @@
+Dockerfile policy is valid.
+workflow/schema/Dockerfile checks passed
+--- runtime base declarations ---
+images/runtimes/java/21/image.yaml:base:
+images/runtimes/java/21/image.yaml-  repository: ghcr.io/nickkostov/base-images/debian
+images/runtimes/java/21/image.yaml-  tag: "13"
+images/runtimes/java/21/image.yaml-  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/java/21/image.yaml-upstream:
+--
+images/runtimes/node/22/image.yaml:base:
+images/runtimes/node/22/image.yaml-  repository: ghcr.io/nickkostov/base-images/debian
+images/runtimes/node/22/image.yaml-  tag: "13"
+images/runtimes/node/22/image.yaml-  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/22/image.yaml-upstream:
+--
+images/runtimes/python/3.13/image.yaml:base:
+images/runtimes/python/3.13/image.yaml-  repository: ghcr.io/nickkostov/base-images/debian
+images/runtimes/python/3.13/image.yaml-  tag: "13"
+images/runtimes/python/3.13/image.yaml-  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/python/3.13/image.yaml-upstream:

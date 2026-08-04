@@ -6,5 +6,6 @@
 - [Security model](security-model.md)
 - [Consumer guide](consumer-guide.md)
 - [Framework images](frameworks.md)
+- [Service images](services.md)
 - [Publishing with GitHub Actions](publishing.md)
 - [Emergency rebuild](emergency-rebuild.md)

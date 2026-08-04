@@ -1,0 +1,6 @@
+Dockerfile policy is valid.
+User-facing workflows:
+name: Publish base image
+name: Publish runtime image
+name: Publish framework image
+Workflow checks passed

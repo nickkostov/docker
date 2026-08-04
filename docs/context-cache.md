@@ -11,7 +11,7 @@ OCI registry artifacts, SBOM/provenance/signature tooling.
 `images/` definitions, including Debian 11 bullseye, Debian 12 bookworm, and
 Debian 13 trixie plus Ubuntu 20.04, 22.04, 24.04, and 26.04; `catalog/`
 inventory; Alpine 3.21-3.24 and BusyBox 1.36.0-1.38.0 base definitions;
-`policies/` controls;
+service definitions such as Nginx; `policies/` controls;
 `schemas/` metadata contract; `scripts/` local automation; `docs/` operating
 model; `.github/workflows/` CI.
 

@@ -3,6 +3,10 @@ variant: runtime
 version: "21"
 description: Organization-approved Java 21 runtime image.
 owners: [platform-engineering]
+base:
+  repository: ghcr.io/nickkostov/base-images/debian
+  tag: "13"
+  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
 upstream:
   image: docker.io/library/eclipse-temurin
   tag: 21-jre

@@ -1,0 +1,16 @@
+        with:
+          context: ${{ steps.image.outputs.directory }}
+          file: ${{ steps.image.outputs.directory }}/Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ steps.image.outputs.repository }}:${{ steps.image.outputs.tag }}
+            ${{ steps.image.outputs.repository }}:${{ steps.image.outputs.version }}
+          build-args: |
+            UPSTREAM_IMAGE=${{ steps.image.outputs.upstream }}
+            VERSION=${{ steps.image.outputs.version }}
+            BUILD_DATE=${{ steps.image.outputs.build_date }}
+            REVISION=${{ github.sha }}
+          labels: |
+Dockerfile policy is valid.
+Dual-tag workflow check passed

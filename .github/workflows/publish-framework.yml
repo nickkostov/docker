@@ -1,0 +1,76 @@
+name: Publish framework image
+
+on:
+  workflow_dispatch:
+    inputs:
+      framework:
+        description: Framework
+        required: true
+        type: choice
+        options: [react, vite]
+        default: vite
+      version:
+        description: Framework version
+        required: true
+        type: string
+        default: "7"
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      directory: ${{ steps.image.outputs.directory }}
+      repository: ${{ steps.image.outputs.repository }}
+      upstream: ${{ steps.image.outputs.upstream }}
+      version: ${{ steps.image.outputs.version }}
+      tag: ${{ steps.image.outputs.tag }}
+      build_date: ${{ steps.image.outputs.build_date }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve framework
+        id: image
+        env:
+          FRAMEWORK: ${{ inputs.framework }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          case "$FRAMEWORK/$VERSION" in
+            react/19) metadata=images/frameworks/react/image.yaml ;;
+            vite/7) metadata=images/frameworks/vite/image.yaml ;;
+            *) echo "Unsupported framework/version: $FRAMEWORK/$VERSION" >&2; exit 1 ;;
+          esac
+          directory=${metadata%/image.yaml}
+          repository=$(awk '$1 == "repository:" {print $2; exit}' "$metadata")
+          upstream_image=$(awk '$1 == "image:" {print $2; exit}' "$metadata")
+          upstream_digest=$(awk '$1 == "digest:" {print $2; exit}' "$metadata")
+          test -n "$repository" -a -n "$upstream_image" -a -n "$upstream_digest"
+          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Framework metadata contains no verified upstream digest" >&2; exit 1; }
+          timestamp=$(date -u +%Y%m%d-%H%M%S)
+          build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          {
+            echo "directory=$directory"
+            echo "repository=$repository"
+            echo "upstream=$upstream_image@$upstream_digest"
+            echo "version=$VERSION"
+            echo "tag=$VERSION-$timestamp"
+            echo "build_date=$build_date"
+          } >> "$GITHUB_OUTPUT"
+
+  publish-framework:
+    needs: prepare
+    uses: ./.github/workflows/publish-one-image.yml
+    with:
+      directory: ${{ needs.prepare.outputs.directory }}
+      repository: ${{ needs.prepare.outputs.repository }}
+      upstream: ${{ needs.prepare.outputs.upstream }}
+      version: ${{ needs.prepare.outputs.version }}
+      tag: ${{ needs.prepare.outputs.tag }}
+      build_date: ${{ needs.prepare.outputs.build_date }}
+    secrets: inherit

@@ -10,6 +10,10 @@ while IFS= read -r metadata; do
       errors=$((errors + 1))
     fi
   done
+  if grep -Eq '^variant:[[:space:]]*runtime' "$metadata" && ! grep -Eq '^base:' "$metadata"; then
+    echo "ERROR: $metadata runtime images must declare an approved base image" >&2
+    errors=$((errors + 1))
+  fi
   if ! grep -Eq 'digest:[[:space:]]*sha256:[0-9a-f]{64}' "$metadata"; then
     echo "ERROR: $metadata must contain a verified sha256 digest" >&2
     errors=$((errors + 1))

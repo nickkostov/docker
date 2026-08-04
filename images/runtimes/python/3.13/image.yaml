@@ -3,6 +3,10 @@ variant: runtime
 version: "3.13"
 description: Organization-approved Python 3.13 runtime image.
 owners: [platform-engineering]
+base:
+  repository: ghcr.io/nickkostov/base-images/debian
+  tag: "13"
+  digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
 upstream:
   image: docker.io/library/python
   tag: 3.13-slim-bookworm
