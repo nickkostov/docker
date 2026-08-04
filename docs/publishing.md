@@ -9,8 +9,9 @@ From the GitHub Actions tab:
 
 1. Select **Publish container image**.
 2. Choose **Run workflow**.
-3. Set `metadata`, for example `images/base/debian/11/image.yaml`.
-4. Set an immutable organization tag, for example `11.0.0-20260803`.
+3. Select the image from the `metadata` dropdown.
+4. Start the workflow. It generates an immutable UTC tag automatically using
+   the image version and run timestamp, for example `11-20260804-224517`.
 5. Review the published digest before promoting it.
 
 The workflow uses the repository `GITHUB_TOKEN`; it needs `packages: write`,

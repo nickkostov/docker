@@ -9,7 +9,7 @@ upstream:
   digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
 platforms: [linux/amd64, linux/arm64]
 registry:
-  repository: ghcr.io/example-org/base-images/python
+  repository: ghcr.io/nickkostov/base-images/python
 user: {uid: 10001, gid: 10001}
 lifecycle: {status: supported, support_until: "2029-10-31"}
 security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
