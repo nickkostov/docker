@@ -7,3 +7,4 @@ allowed:
   - docker.io/library/node
   - docker.io/library/python
   - docker.io/library/eclipse-temurin
+  - ghcr.io/nickkostov/base-images/ubuntu

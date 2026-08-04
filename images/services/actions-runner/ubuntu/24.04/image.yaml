@@ -1,0 +1,16 @@
+name: actions-runner
+variant: service
+version: "2.329.0"
+description: Organization GitHub Actions runner image based on Ubuntu 24.04.
+owners: [platform-engineering]
+upstream:
+  image: ghcr.io/nickkostov/base-images/ubuntu
+  tag: "24.04"
+  digest: sha256:2d98c53895c43c36ed4488d3432ee29c0fa1e8fd6ddb286053909b002c734fc6
+platforms: [linux/amd64, linux/arm64]
+registry:
+  repository: ghcr.io/nickkostov/base-images/actions-runner
+user: {uid: 1000, gid: 1000}
+lifecycle: {status: supported, support_until: "2027-12-31"}
+security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
+tags: ["2.329.0-ubuntu24.04", "ubuntu24.04"]

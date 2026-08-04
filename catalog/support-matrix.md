@@ -21,6 +21,7 @@
 | Node.js | runtime | 22 | Supported |
 | Python | runtime | 3.13 | Supported |
 | Nginx | service | current approved | Supported |
+| GitHub Actions Runner | service | 2.329.0 on Ubuntu 24.04 | Supported |
 
 Exact upstream digests and support dates live beside each Dockerfile in
 `image.yaml`.

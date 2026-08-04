@@ -13,7 +13,7 @@ on:
         description: Operating system, runtime, or framework family
         required: true
         type: choice
-        options: [alpine, busybox, debian, ubuntu, nginx]
+        options: [actions-runner, alpine, busybox, debian, ubuntu, nginx]
         default: ubuntu
       version:
         description: Version matching the selected image family
@@ -66,6 +66,7 @@ jobs:
             base/ubuntu/22.04) metadata=images/base/ubuntu/22.04/image.yaml ;;
             base/ubuntu/24.04) metadata=images/base/ubuntu/24.04/image.yaml ;;
             base/ubuntu/26.04) metadata=images/base/ubuntu/26.04/image.yaml ;;
+            service/actions-runner/2.329.0) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml ;;
             service/nginx/current) metadata=images/services/nginx/image.yaml ;;
             *) echo "Unsupported image selection: $IMAGE_TYPE/$OS/$VERSION" >&2; exit 1 ;;
           esac

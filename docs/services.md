@@ -11,6 +11,7 @@ Examples include:
 - Message brokers: RabbitMQ, Kafka
 - Proxies: HAProxy, Traefik
 - Observability components: Prometheus and exporters
+- CI infrastructure: GitHub Actions self-hosted runners
 
 The image categories are:
 
@@ -18,7 +19,7 @@ The image categories are:
 base       Debian, Ubuntu, Alpine, BusyBox
 runtime    Java, Node.js, Python
 framework  React, Vite
-service    Nginx, databases, brokers, proxies
+service    Nginx, databases, brokers, proxies, Actions runners
 ```
 
 For a frontend application, the usual flow is:
@@ -31,3 +32,7 @@ The current Nginx service is published through the **Publish base image**
 workflow because it is the only service currently in the catalog. When the
 service catalog grows, it can move to a dedicated **Publish service image**
 workflow without changing the image definitions.
+
+The GitHub Actions runner is also published by the base/service workflow. It
+is based on Ubuntu 24.04 and starts the runner through `run.sh`; registration
+secrets are supplied only at runtime.

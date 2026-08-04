@@ -1,0 +1,9 @@
+Dockerfile policy is valid.
+--- remaining Ubuntu digest placeholders ---
+images/runtimes/node/versions.yaml:9:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/versions.yaml:15:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/versions.yaml:21:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/versions.yaml:48:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/versions.yaml:54:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+images/runtimes/node/versions.yaml:60:        base_digest: sha256:REPLACE_WITH_PUBLISHED_BASE_DIGEST
+Ubuntu digest updates passed
