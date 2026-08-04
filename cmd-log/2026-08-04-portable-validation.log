@@ -1,0 +1,16 @@
+ERROR: images/base/alpine/3.21/image.yaml must contain a verified sha256 digest
+ERROR: images/base/alpine/3.22/image.yaml must contain a verified sha256 digest
+ERROR: images/base/alpine/3.23/image.yaml must contain a verified sha256 digest
+ERROR: images/base/alpine/3.24/image.yaml must contain a verified sha256 digest
+ERROR: images/base/busybox/1.36.0/image.yaml must contain a verified sha256 digest
+ERROR: images/base/busybox/1.36.1/image.yaml must contain a verified sha256 digest
+ERROR: images/base/busybox/1.37.0/image.yaml must contain a verified sha256 digest
+ERROR: images/base/busybox/1.38.0/image.yaml must contain a verified sha256 digest
+ERROR: images/frameworks/react/image.yaml must contain a verified sha256 digest
+ERROR: images/frameworks/vite/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/java/21/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/node/22/image.yaml must contain a verified sha256 digest
+ERROR: images/runtimes/python/3.13/image.yaml must contain a verified sha256 digest
+ERROR: images/services/nginx/image.yaml must contain a verified sha256 digest
+--- Dockerfile validation without rg ---
+Dockerfile policy is valid.
