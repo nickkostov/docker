@@ -50,6 +50,7 @@ jobs:
           VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
+          publish_version="$VERSION"
           case "$IMAGE_TYPE/$OS/$VERSION" in
             base/alpine/3.21) metadata=images/base/alpine/3.21/image.yaml ;;
             base/alpine/3.22) metadata=images/base/alpine/3.22/image.yaml ;;
@@ -66,9 +67,9 @@ jobs:
             base/ubuntu/22.04) metadata=images/base/ubuntu/22.04/image.yaml ;;
             base/ubuntu/24.04) metadata=images/base/ubuntu/24.04/image.yaml ;;
             base/ubuntu/26.04) metadata=images/base/ubuntu/26.04/image.yaml ;;
-            service/actions-runner/2.329.0-ubuntu22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml ;;
-            service/actions-runner/2.329.0-ubuntu24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml ;;
-            service/actions-runner/2.329.0-ubuntu26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml ;;
+            service/actions-runner/22.04|service/actions-runner/2.329.0-ubuntu22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml; publish_version=2.329.0-ubuntu22.04 ;;
+            service/actions-runner/24.04|service/actions-runner/2.329.0-ubuntu24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml; publish_version=2.329.0-ubuntu24.04 ;;
+            service/actions-runner/26.04|service/actions-runner/2.329.0-ubuntu26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml; publish_version=2.329.0-ubuntu26.04 ;;
             service/nginx/current) metadata=images/services/nginx/image.yaml ;;
             *) echo "Unsupported image selection: $IMAGE_TYPE/$OS/$VERSION" >&2; exit 1 ;;
           esac
@@ -87,8 +88,8 @@ jobs:
             echo "directory=$directory"
             echo "repository=$repository"
             echo "upstream=$upstream_image@$upstream_digest"
-            echo "version=$VERSION"
-            echo "tag=$VERSION-$timestamp"
+            echo "version=$publish_version"
+            echo "tag=$publish_version-$timestamp"
             echo "build_date=$build_date"
           } >> "$GITHUB_OUTPUT"
 
