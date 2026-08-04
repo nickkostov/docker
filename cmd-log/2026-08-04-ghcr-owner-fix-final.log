@@ -1,0 +1,7 @@
+--- remaining placeholders ---
+.github/CODEOWNERS:1:* @example-org/platform-engineering
+.github/CODEOWNERS:2:/images/ @example-org/platform-engineering
+.github/CODEOWNERS:3:/policies/ @example-org/application-security
+.github/CODEOWNERS:4:/.github/workflows/ @example-org/platform-engineering @example-org/application-security
+--- check directives ---
+Dockerfiles with check directive: 21

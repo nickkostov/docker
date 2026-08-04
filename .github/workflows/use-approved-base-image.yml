@@ -26,7 +26,7 @@ jobs:
           set -euo pipefail
           while IFS= read -r image; do
             case "$image" in
-              ghcr.io/example-org/base-images/*) ;;
+              ghcr.io/nickkostov/docker/*) ;;
               *) echo "::error::Unapproved base image: $image"; exit 1 ;;
             esac
           done < /tmp/base-images.txt

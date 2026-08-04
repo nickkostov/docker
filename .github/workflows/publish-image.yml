@@ -6,12 +6,30 @@ on:
       metadata:
         description: Path to image.yaml
         required: true
-        type: string
+        type: choice
         default: images/base/debian/11/image.yaml
-      tag:
-        description: Immutable organization image tag, for example 11.0.0-20260803
-        required: true
-        type: string
+        options:
+          - images/base/alpine/3.21/image.yaml
+          - images/base/alpine/3.22/image.yaml
+          - images/base/alpine/3.23/image.yaml
+          - images/base/alpine/3.24/image.yaml
+          - images/base/busybox/1.36.0/image.yaml
+          - images/base/busybox/1.36.1/image.yaml
+          - images/base/busybox/1.37.0/image.yaml
+          - images/base/busybox/1.38.0/image.yaml
+          - images/base/debian/11/image.yaml
+          - images/base/debian/12/image.yaml
+          - images/base/debian/13/image.yaml
+          - images/base/ubuntu/20.04/image.yaml
+          - images/base/ubuntu/22.04/image.yaml
+          - images/base/ubuntu/24.04/image.yaml
+          - images/base/ubuntu/26.04/image.yaml
+          - images/frameworks/react/image.yaml
+          - images/frameworks/vite/image.yaml
+          - images/runtimes/java/21/image.yaml
+          - images/runtimes/node/22/image.yaml
+          - images/runtimes/python/3.13/image.yaml
+          - images/services/nginx/image.yaml
 
 permissions:
   contents: read
@@ -47,7 +65,11 @@ jobs:
           echo "directory=$directory" >> "$GITHUB_OUTPUT"
           echo "repository=$repository" >> "$GITHUB_OUTPUT"
           echo "upstream=$upstream_image@$upstream_digest" >> "$GITHUB_OUTPUT"
-          echo "version=$(awk '$1 == "version:" {print $2; exit}' "$METADATA" | tr -d '"')" >> "$GITHUB_OUTPUT"
+          version=$(awk '$1 == "version:" {print $2; exit}' "$METADATA" | tr -d '"')
+          timestamp=$(date -u -d "${{ github.run_started_at }}" +%Y%m%d-%H%M%S)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$version-$timestamp" >> "$GITHUB_OUTPUT"
+          echo "Generated immutable tag: $version-$timestamp"
 
       - name: Set up Buildx
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
@@ -66,7 +88,7 @@ jobs:
           file: ${{ steps.image.outputs.directory }}/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ steps.image.outputs.repository }}:${{ inputs.tag }}
+          tags: ${{ steps.image.outputs.repository }}:${{ steps.image.outputs.tag }}
           build-args: |
             UPSTREAM_IMAGE=${{ steps.image.outputs.upstream }}
             VERSION=${{ steps.image.outputs.version }}
