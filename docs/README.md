@@ -8,5 +8,6 @@
 - [Framework images](frameworks.md)
 - [Service images](services.md)
 - [Runtime matrix](runtime-matrix.md)
+- [Inspectur repository CLI](inspectur.md)
 - [Publishing with GitHub Actions](publishing.md)
 - [Emergency rebuild](emergency-rebuild.md)

@@ -23,6 +23,20 @@ published.
 make validate
 ```
 
+## Repository inventory CLI
+
+Install the `inspectur` helper in a local virtual environment:
+
+```sh
+make inspectur-install
+source .venv/bin/activate
+inspectur --help
+```
+
+Running `inspectur` without a command displays the complete image inventory.
+See [the Inspectur guide](docs/inspectur.md) for filters, readiness checks, and
+runtime matrix views.
+
 An upstream digest must be replaced with a registry-verified value before an
 image is buildable or publishable. Production consumers should pin the
 published image by digest.
