@@ -1,6 +1,6 @@
 # GitHub Actions runner on Ubuntu 24.04
 
-This service image packages GitHub Actions Runner `2.329.0` on Ubuntu 24.04.
+This service image packages GitHub Actions Runner `2.334.0` on Ubuntu 24.04.
 It is intended for self-hosted runner infrastructure and requires the normal
 runner registration environment at container start.
 
