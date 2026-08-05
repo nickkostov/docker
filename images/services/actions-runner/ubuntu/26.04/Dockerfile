@@ -10,7 +10,7 @@ ARG VERSION
 LABEL org.opencontainers.image.title="Organization GitHub Actions Runner" org.opencontainers.image.description="GitHub Actions self-hosted runner on Ubuntu 26.04" org.opencontainers.image.version="${VERSION}" org.opencontainers.image.created="${BUILD_DATE}" org.opencontainers.image.revision="${REVISION}" org.opencontainers.image.source="https://github.com/nickkostov/docker"
 ENV DEBIAN_FRONTEND=noninteractive
 USER root
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl git jq sudo tar gzip unzip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl git jq sudo tar gzip unzip libicu-dev && rm -rf /var/lib/apt/lists/*
 RUN set -eux; \
   if getent passwd 1000 >/dev/null; then \
     runner_user="$(getent passwd 1000 | cut -d: -f1)"; \
