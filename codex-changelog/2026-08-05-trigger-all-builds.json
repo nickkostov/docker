@@ -1,0 +1,5 @@
+{
+  "prompt": "Create a CLI script to trigger all image build workflows.",
+  "response": "Added executable scripts/trigger-all-builds.sh. It dispatches all current base-image combinations, the Node.js Alpine and Ubuntu runtime matrix, React and Vite frameworks, and Actions Runner plus Nginx services. It supports --dry-run and uses gh workflow run.",
+  "sensitive_data": "[REDACTED]"
+}
