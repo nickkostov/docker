@@ -1,0 +1,75 @@
+name: Build Actions Runners
+
+on:
+  workflow_dispatch:
+    inputs:
+      ubuntu_version:
+        description: Ubuntu version
+        required: true
+        type: choice
+        options: ["22.04", "24.04", "26.04"]
+        default: "26.04"
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      directory: ${{ steps.image.outputs.directory }}
+      repository: ${{ steps.image.outputs.repository }}
+      upstream: ${{ steps.image.outputs.upstream }}
+      version: ${{ steps.image.outputs.version }}
+      tag: ${{ steps.image.outputs.tag }}
+      moving_tag: ${{ steps.image.outputs.moving_tag }}
+      build_date: ${{ steps.image.outputs.build_date }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve service
+        id: image
+        env:
+          UBUNTU_VERSION: ${{ inputs.ubuntu_version }}
+        run: |
+          set -euo pipefail
+          publish_version="2.336.0-ubuntu${UBUNTU_VERSION}"
+          case "$UBUNTU_VERSION" in
+            22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml ;;
+            24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml ;;
+            26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml ;;
+            *) echo "Unsupported Ubuntu version: $UBUNTU_VERSION" >&2; exit 1 ;;
+          esac
+          directory=${metadata%/image.yaml}
+          repository=$(awk '$1 == "repository:" {print $2; exit}' "$metadata")
+          upstream_image=$(awk '$1 == "image:" {print $2; exit}' "$metadata")
+          upstream_digest=$(awk '$1 == "digest:" {print $2; exit}' "$metadata")
+          test -n "$repository" -a -n "$upstream_image" -a -n "$upstream_digest"
+          [[ "$upstream_digest" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Service metadata contains no verified digest" >&2; exit 1; }
+          timestamp=$(date -u +%Y%m%d-%H%M%S)
+          build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          {
+            echo "directory=$directory"
+            echo "repository=$repository"
+            echo "upstream=$upstream_image@$upstream_digest"
+            echo "version=$publish_version"
+            echo "tag=$publish_version-$timestamp"
+            echo "moving_tag=$publish_version"
+            echo "build_date=$build_date"
+          } >> "$GITHUB_OUTPUT"
+
+  publish-service:
+    needs: prepare
+    uses: ./.github/workflows/publish-one-image.yml
+    with:
+      directory: ${{ needs.prepare.outputs.directory }}
+      repository: ${{ needs.prepare.outputs.repository }}
+      upstream: ${{ needs.prepare.outputs.upstream }}
+      version: ${{ needs.prepare.outputs.version }}
+      tag: ${{ needs.prepare.outputs.tag }}
+      moving_tag: ${{ needs.prepare.outputs.moving_tag }}
+      build_date: ${{ needs.prepare.outputs.build_date }}
+    secrets: inherit
