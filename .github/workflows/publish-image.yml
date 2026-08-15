@@ -11,7 +11,7 @@ on:
         options: [base]
         default: base
       os:
-        description: Operating system, runtime, or framework family
+        description: Operating system family
         required: true
         type: choice
         options: [alpine, busybox, debian, ubuntu]
@@ -57,8 +57,6 @@ jobs:
             base/alpine/3.22) metadata=images/base/alpine/3.22/image.yaml ;;
             base/alpine/3.23) metadata=images/base/alpine/3.23/image.yaml ;;
             base/alpine/3.24) metadata=images/base/alpine/3.24/image.yaml ;;
-            base/busybox/1.36.0) metadata=images/base/busybox/1.36.0/image.yaml ;;
-            base/busybox/1.36.1) metadata=images/base/busybox/1.36.1/image.yaml ;;
             base/busybox/1.37.0) metadata=images/base/busybox/1.37.0/image.yaml ;;
             base/busybox/1.38.0) metadata=images/base/busybox/1.38.0/image.yaml ;;
             base/debian/11) metadata=images/base/debian/11/image.yaml ;;

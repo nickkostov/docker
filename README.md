@@ -1,6 +1,6 @@
 # Organization Container Images
 
-Central source for approved, hardened Docker base and runtime images.
+Central source for approved base, runtime, and service container images.
 
 The catalog is metadata-driven. Each image keeps its Dockerfile, lifecycle,
 security requirements, owners, and pinned upstream digest together under
@@ -9,7 +9,9 @@ published.
 
 ## Repository layout
 
-- `images/` - approved image definitions
+- `images/base/` - approved operating-system foundations
+- `images/runtimes/` - approved language runtimes on organization base images
+- `images/services/` - approved custom or rebuilt images used as services
 - `catalog/` - published image inventory and support matrix
 - `policies/` - security, lifecycle, upstream, and license rules
 - `schemas/` - metadata schemas

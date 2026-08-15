@@ -15,10 +15,8 @@
 | Alpine | base | 3.21 | Maintenance |
 | BusyBox | base | 1.38.0 | Experimental |
 | BusyBox | base | 1.37.0 | Supported |
-| BusyBox | base | 1.36.1 | Maintenance |
-| BusyBox | base | 1.36.0 | Maintenance |
 | Java | runtime | 21 | Supported |
-| Node.js | runtime | 22 | Supported |
+| Node.js | runtime | 22, 24 | Supported matrix |
 | Python | runtime | 3.13 | Supported |
 | Nginx | service | current approved | Supported |
 | GitHub Actions Runner | service | 2.334.0 on Ubuntu 24.04 | Supported |

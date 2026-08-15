@@ -1,8 +1,14 @@
 # Service images
 
-Service images are ready-to-run infrastructure components. They are deployed
-as services, rather than used as operating-system foundations, language
-runtimes, or application build environments.
+Service images are organization-approved custom or rebuilt images intended for
+direct use. A service may be a thin rebuild of a pinned upstream image, such as
+Nginx, or a more customized image, such as the GitHub Actions Runner.
+
+The purpose of rebuilding an upstream service is to publish it under the
+organization registry with a verified upstream digest, organization metadata,
+security policy, SBOM, provenance, and controlled tags. A service Dockerfile
+does not need to make extensive changes: an approved rebuild of an otherwise
+unchanged upstream image is a valid service.
 
 Examples include:
 
@@ -13,19 +19,12 @@ Examples include:
 - Observability components: Prometheus and exporters
 - CI infrastructure: GitHub Actions self-hosted runners
 
-The image categories are:
+The complete image taxonomy is:
 
 ```text
 base       Debian, Ubuntu, Alpine, BusyBox
 runtime    Java, Node.js, Python
-framework  React, Vite
 service    Nginx, databases, brokers, proxies, Actions runners
-```
-
-For a frontend application, the usual flow is:
-
-```text
-React/Vite framework builder -> dist/ assets -> Nginx service image
 ```
 
 The current Nginx service is published through the dedicated **Publish service

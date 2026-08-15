@@ -17,7 +17,7 @@ from inspectur import __version__
 
 
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
-VARIANTS = ("base", "runtime", "builder", "framework", "service", "tool")
+VARIANTS = ("base", "runtime", "service")
 STATUSES = ("experimental", "supported", "maintenance", "deprecated", "end-of-life")
 STATUS_STYLES = {
     "experimental": "magenta",

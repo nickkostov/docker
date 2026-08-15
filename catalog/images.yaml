@@ -24,9 +24,6 @@ images:
   - name: java
     path: images/runtimes/java/21
     status: supported
-  - name: node
-    path: images/runtimes/node/22
-    status: supported
   - name: python
     path: images/runtimes/python/3.13
     status: supported
@@ -41,12 +38,6 @@ images:
     status: supported
   - name: actions-runner
     path: images/services/actions-runner/ubuntu/26.04
-    status: supported
-  - name: react
-    path: images/frameworks/react
-    status: supported
-  - name: vite
-    path: images/frameworks/vite
     status: supported
   - name: alpine
     path: images/base/alpine/3.24
@@ -66,9 +57,3 @@ images:
   - name: busybox
     path: images/base/busybox/1.37.0
     status: supported
-  - name: busybox
-    path: images/base/busybox/1.36.1
-    status: maintenance
-  - name: busybox
-    path: images/base/busybox/1.36.0
-    status: maintenance

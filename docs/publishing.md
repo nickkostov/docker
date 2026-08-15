@@ -7,7 +7,7 @@ an immutable tag, and emits SBOM and provenance attestations.
 
 From the GitHub Actions tab:
 
-1. Select one of the four workflows: **Publish base image**, **Publish runtime image**, **Publish framework image**, or **Publish service image**.
+1. Select one of the three workflows: **Publish base image**, **Publish runtime image**, or **Publish service image**.
 2. Choose **Run workflow**.
 3. Select the image-specific options and version.
 4. Start the workflow. It resolves the matching `image.yaml` and generates an immutable UTC tag automatically using
@@ -23,10 +23,10 @@ Each publication creates two tags from the same digest. The selected image
 type is routed to its dedicated workflow:
 
 Runtime images are handled by the separate **Publish runtime image** workflow.
-It verifies that the selected organization OS digest exists in GHCR before
-starting the runtime build. The current supported dependency is Debian 13;
-the runtime workflow fails if that OS image has not been published and its
-digest has not been recorded in the runtime `image.yaml`.
+The current workflow supports the Node.js Alpine and Ubuntu matrix. It verifies
+that the selected organization OS digest exists in GHCR before starting the
+runtime build and fails when either the OS or upstream runtime digest is not
+recorded.
 
 Services are handled by **Publish service image**. It currently supports Nginx
 and the Ubuntu 22.04, 24.04, and 26.04 Actions Runner variants.

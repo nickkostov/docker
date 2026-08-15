@@ -19,7 +19,9 @@ class ImageMetadataTests(unittest.TestCase):
             with self.subTest(path=path.relative_to(REPOSITORY_ROOT)):
                 text = path.read_text(encoding="utf-8")
                 self.assertIsNone(FLOW_STYLE.search(text))
-                self.assertIsInstance(yaml.safe_load(text), dict)
+                metadata = yaml.safe_load(text)
+                self.assertIsInstance(metadata, dict)
+                self.assertIn(metadata["variant"], {"base", "runtime", "service"})
 
     def test_schema_has_no_errors_except_explicit_digest_placeholders(self) -> None:
         schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))

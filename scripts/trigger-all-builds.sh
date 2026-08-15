@@ -38,7 +38,7 @@ echo "Dispatching base images"
 for version in 3.21 3.22 3.23 3.24; do
   dispatch "Publish base image" image_type=base os=alpine version="$version"
 done
-for version in 1.36.0 1.36.1 1.37.0 1.38.0; do
+for version in 1.37.0 1.38.0; do
   dispatch "Publish base image" image_type=base os=busybox version="$version"
 done
 for version in 11 12 13; do
@@ -57,10 +57,6 @@ for version in 22 24; do
     dispatch "Publish runtime image" runtime=node version="$version" base_os=ubuntu base_version="$base_version"
   done
 done
-
-echo "Dispatching framework images"
-dispatch "Publish framework image" framework=react version=19
-dispatch "Publish framework image" framework=vite version=7
 
 echo "Dispatching service images"
 for version in 22.04 24.04 26.04; do

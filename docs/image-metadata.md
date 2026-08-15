@@ -16,8 +16,8 @@ Each definition records:
 - supported publishing tags.
 
 Runtime definitions additionally require an approved organization base image
-and its published digest. Framework definitions include their opinionated
-runtime and build conventions.
+and its published digest. Service definitions describe custom or rebuilt images
+that are approved for direct organizational use.
 
 Values such as `sha256:REPLACE_WITH_VERIFIED_DIGEST` are explicit incomplete
 metadata, not valid release digests. They intentionally fail metadata and schema

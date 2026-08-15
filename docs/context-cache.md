@@ -1,7 +1,7 @@
 # Context Cache
 
 ## Goal
-Maintain approved, reproducible, signed Docker base and runtime images.
+Maintain approved, reproducible, signed base, runtime, and service images.
 
 ## Stack
 Dockerfiles, YAML metadata, JSON Schema, shell validation, Python 3.10+, Click,
@@ -11,7 +11,7 @@ SBOM/provenance/signature tooling.
 ## Files
 `images/` definitions, including Debian 11 bullseye, Debian 12 bookworm, and
 Debian 13 trixie plus Ubuntu 20.04, 22.04, 24.04, and 26.04; `catalog/`
-inventory; Alpine 3.21-3.24 and BusyBox 1.36.0-1.38.0 base definitions;
+inventory; Alpine 3.21-3.24 and BusyBox 1.37.0-1.38.0 base definitions;
 service definitions such as Nginx; `policies/` controls;
 `schemas/` metadata contract; `scripts/` local automation; `docs/` operating
 model; `.github/workflows/` CI; `src/inspectur/` metadata inventory CLI;
@@ -19,9 +19,9 @@ model; `.github/workflows/` CI; `src/inspectur/` metadata inventory CLI;
 documents the Node matrix and shared Dockerfile flow.
 
 ## Rules
-Pin upstreams by verified digest. Use numeric non-root users. Keep builders
-separate from runtimes. Never use `latest`, bake secrets into layers, or
-rebuild during promotion. Production references record image digests. Keep
+Pin upstreams by verified digest. Use numeric non-root users. Keep only base,
+runtime, and service image classes. Never use `latest`, bake secrets into
+layers, or rebuild during promotion. Production references record image digests. Keep
 `image.yaml` nested mappings and lists in block style; validate them against
 `schemas/image.schema.json`.
 
@@ -29,4 +29,5 @@ rebuild during promotion. Production references record image digests. Keep
 Use one central catalog, metadata-driven discovery, immutable build tags,
 expiring vulnerability exceptions, and build-once/promote-by-digest. Inspectur
 reads `images/**/image.yaml` directly and treats unresolved upstream or runtime
-base digests as blocked.
+base digests as blocked. Services are approved custom or rebuilt images for
+direct use, including thin rebuilds of pinned upstreams such as Nginx.

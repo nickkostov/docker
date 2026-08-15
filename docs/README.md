@@ -6,7 +6,6 @@
 - [Versioning](versioning.md)
 - [Security model](security-model.md)
 - [Consumer guide](consumer-guide.md)
-- [Framework images](frameworks.md)
 - [Service images](services.md)
 - [Runtime matrix](runtime-matrix.md)
 - [Node.js runtime images](node-runtime.md)
