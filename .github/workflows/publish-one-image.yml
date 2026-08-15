@@ -3,14 +3,32 @@ name: Publish Image
 on:
   workflow_call:
     inputs:
-      directory: {required: true, type: string}
-      repository: {required: true, type: string}
-      upstream: {required: true, type: string}
-      version: {required: true, type: string}
-      tag: {required: true, type: string}
-      build_date: {required: true, type: string}
-      base_image: {required: false, type: string, default: ""}
-      moving_tag: {required: false, type: string, default: ""}
+      directory: 
+        required: true
+        type: string
+      repository:
+        required: true 
+        type: string
+      upstream: 
+        required: true
+        type: string
+      version: 
+        required: true
+        type: string
+      tag: 
+        required: true 
+        type: string
+      build_date: 
+        required: true
+        type: string
+      base_image: 
+        required: false 
+        type: string
+        default: ""
+      moving_tag: 
+        required: false 
+        type: string
+        default: ""
 
 permissions:
   contents: read
