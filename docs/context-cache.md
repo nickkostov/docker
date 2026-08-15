@@ -15,7 +15,8 @@ inventory; Alpine 3.21-3.24 and BusyBox 1.36.0-1.38.0 base definitions;
 service definitions such as Nginx; `policies/` controls;
 `schemas/` metadata contract; `scripts/` local automation; `docs/` operating
 model; `.github/workflows/` CI; `src/inspectur/` metadata inventory CLI;
-`pyproject.toml` installs the `inspectur` command.
+`pyproject.toml` installs the `inspectur` command; `docs/node-runtime.md`
+documents the Node matrix and shared Dockerfile flow.
 
 ## Rules
 Pin upstreams by verified digest. Use numeric non-root users. Keep builders

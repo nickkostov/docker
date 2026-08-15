@@ -11,6 +11,9 @@ For Node.js, the supported matrix is maintained in
 published. This prevents an uncontrolled multiplication of images and keeps
 Alpine/musl and Ubuntu/glibc builds explicit.
 
+See [Node.js runtime images](node-runtime.md) for the complete selection,
+build, dependency, and tagging flow.
+
 Example image identities:
 
 ```text

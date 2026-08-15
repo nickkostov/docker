@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   prepare:
-    runs-on: ubuntu-latest
+    runs-on: docker-ubuntu-2404
     outputs:
       image_type: ${{ steps.image.outputs.image_type }}
       directory: ${{ steps.image.outputs.directory }}
