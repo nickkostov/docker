@@ -1,7 +1,0 @@
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label title
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label description
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label version
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label created
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label revision
-ERROR: images/services/actions-runner/ubuntu/24.04/Dockerfile is missing OCI label source
-Actions runner metadata, entrypoint, workflow, and Dockerfile checks passed

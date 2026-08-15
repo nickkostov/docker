@@ -1,6 +1,0 @@
-69:          timestamp=$(date -u +%Y%m%d-%H%M%S)
-70:          build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-73:          echo "build_date=$build_date" >> "$GITHUB_OUTPUT"
-97:            BUILD_DATE=${{ steps.image.outputs.build_date }}
-Dockerfile policy is valid.
-Timestamp workflow check passed

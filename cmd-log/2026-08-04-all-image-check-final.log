@@ -1,4 +1,0 @@
---- consistency audit ---
-image.yaml count: 21
-Dockerfile policy is valid.
-All YAML/Dockerfile/pairing checks passed

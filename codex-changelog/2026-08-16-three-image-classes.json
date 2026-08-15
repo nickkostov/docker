@@ -1,5 +1,0 @@
-{
-  "prompt": "Change the repository architecture to keep only base, runtime, and services, with services representing custom or approved rebuilds such as Nginx.",
-  "response": "Restricted the metadata schema and Inspectur filters to base, runtime, and service. Removed framework publishing and documentation references, removed framework dispatches, and preserved the existing framework workflow deletion. Redefined services as organization-approved custom or thin rebuilt images, updated Nginx documentation, publishing guidance, architecture, catalog, support matrix, and repository context. Removed stale BusyBox 1.36 workflow and catalog entries that pointed to absent directories, and changed the Node catalog path to its active matrix directory.",
-  "sensitive_data": "[REDACTED]"
-}

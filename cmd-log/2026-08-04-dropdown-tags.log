@@ -1,7 +1,0 @@
-dropdown entries: 21
-61:          upstream_tag=$(awk '$1 == "tag:" {print $2; exit}' "$METADATA")
-69:          timestamp=$(date -u -d "${{ github.run_started_at }}" +%Y%m%d-%H%M%S)
-71:          echo "tag=$version-$timestamp" >> "$GITHUB_OUTPUT"
-72:          echo "Generated immutable tag: $version-$timestamp"
-Dockerfile policy is valid.
-Workflow YAML and static checks passed

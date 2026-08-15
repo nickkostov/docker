@@ -1,6 +1,0 @@
---- base image count ---
-      15
---- Dockerfile validation ---
-Dockerfile policy is valid.
---- YAML and JSON parsing ---
-Static checks passed

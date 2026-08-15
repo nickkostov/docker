@@ -1,5 +1,0 @@
-images/services/actions-runner/ubuntu/22.04/image.yaml
-images/services/actions-runner/ubuntu/24.04/image.yaml
-images/services/actions-runner/ubuntu/26.04/image.yaml
-Dockerfile policy is valid.
-Actions Runner variants and Dockerfile checks passed

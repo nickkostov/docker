@@ -1,6 +1,0 @@
-ERROR: images/base/debian/12/image.yaml must contain a verified sha256 digest
-ERROR: images/runtimes/java/21/image.yaml must contain a verified sha256 digest
-ERROR: images/runtimes/node/22/image.yaml must contain a verified sha256 digest
-ERROR: images/runtimes/python/3.13/image.yaml must contain a verified sha256 digest
-ERROR: images/services/nginx/image.yaml must contain a verified sha256 digest
-make: *** [validate] Error 1

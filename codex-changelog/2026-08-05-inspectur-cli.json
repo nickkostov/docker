@@ -1,5 +1,0 @@
-{
-  "prompt": "Create a Python Click helper named inspectur that uses existing image.yaml files to render useful, attractive CLI inventory tables and supports inspectur --help.",
-  "response": "Added an installable Inspectur CLI using Click, Rich, and PyYAML. It discovers image.yaml definitions, provides default and filterable inventory tables, detailed image views, repository summaries, digest readiness checks, and runtime matrix tables. Added packaging, Make targets, documentation, context-cache updates, and five passing CLI tests.",
-  "sensitive_data": "[REDACTED]"
-}

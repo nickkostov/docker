@@ -1,5 +1,0 @@
-{
-  "prompt": "Write the explanation of how the Node runtime implementation works into repository documentation.",
-  "response": "Added docs/node-runtime.md covering matrix selection, shared Dockerfile stages, digest requirements, GHCR dependency checks, immutable and moving tags, and current placeholder limitations. Linked it from the documentation index and runtime-matrix guide and updated the compact context cache. Preserved the concurrent removal of the former legacy node/22 files.",
-  "sensitive_data": "[REDACTED]"
-}
