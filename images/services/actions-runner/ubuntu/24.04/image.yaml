@@ -1,6 +1,6 @@
 name: actions-runner
 variant: service
-version: 2.334.0-ubuntu24.04
+version: 2.336.0-ubuntu24.04
 description: Organization GitHub Actions runner image based on Ubuntu 24.04.
 owners:
   - platform-engineering
@@ -26,5 +26,5 @@ security:
   require_sbom: true
   require_provenance: true
 tags:
-  - 2.334.0-ubuntu24.04
+  - 2.336.0-ubuntu24.04
   - ubuntu24.04

@@ -1,7 +1,7 @@
 name: actions-runner
 variant: service
-version: 2.334.0-ubuntu22.04
-description: Organization GitHub Actions runner 2.334.0 on Ubuntu 22.04.
+version: 2.336.0-ubuntu22.04
+description: Organization GitHub Actions runner 2.336.0 on Ubuntu 22.04.
 owners:
   - platform-engineering
 upstream:
@@ -26,5 +26,5 @@ security:
   require_sbom: true
   require_provenance: true
 tags:
-  - 2.334.0-ubuntu22.04
+  - 2.336.0-ubuntu22.04
   - ubuntu22.04
