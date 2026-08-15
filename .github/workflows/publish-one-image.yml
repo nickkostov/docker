@@ -63,7 +63,7 @@ jobs:
           build-args: |
             UPSTREAM_IMAGE=${{ inputs.upstream }}
             BASE_IMAGE=${{ inputs.base_image }}
-            RUNNER_VERSION=2.334.0
+            RUNNER_VERSION=2.336.0
             VERSION=${{ inputs.version }}
             BUILD_DATE=${{ inputs.build_date }}
             REVISION=${{ github.sha }}

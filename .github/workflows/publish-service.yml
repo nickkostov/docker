@@ -45,9 +45,9 @@ jobs:
           set -euo pipefail
           publish_version="$VERSION"
           case "$SERVICE/$VERSION" in
-            actions-runner/22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml; publish_version=2.334.0-ubuntu22.04 ;;
-            actions-runner/24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml; publish_version=2.334.0-ubuntu24.04 ;;
-            actions-runner/26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml; publish_version=2.334.0-ubuntu26.04 ;;
+            actions-runner/22.04) metadata=images/services/actions-runner/ubuntu/22.04/image.yaml; publish_version=2.336.0-ubuntu22.04 ;;
+            actions-runner/24.04) metadata=images/services/actions-runner/ubuntu/24.04/image.yaml; publish_version=2.336.0-ubuntu24.04 ;;
+            actions-runner/26.04) metadata=images/services/actions-runner/ubuntu/26.04/image.yaml; publish_version=2.336.0-ubuntu26.04 ;;
             nginx/current) metadata=images/services/nginx/image.yaml ;;
             *) echo "Unsupported service/version: $SERVICE/$VERSION" >&2; exit 1 ;;
           esac

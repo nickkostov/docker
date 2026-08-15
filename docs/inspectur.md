@@ -40,7 +40,7 @@ Inspect one definition:
 
 ```sh
 inspectur show ubuntu 24.04
-inspectur show actions-runner 2.334.0-ubuntu24.04
+inspectur show actions-runner 2.336.0-ubuntu24.04
 ```
 
 Display counts, verify required digests, or inspect runtime combinations:
