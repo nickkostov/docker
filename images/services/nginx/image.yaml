@@ -5,8 +5,8 @@ description: Organization-approved Nginx web-server image.
 owners: [platform-engineering]
 upstream:
   image: docker.io/library/nginx
-  tag: stable-bookworm
-  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
+  tag: 1.30.4
+  digest: sha256:46ccc48fbb1f5a43167f2ee2c279c122b96eec5d976e7f4e1e0780f59a51b4d6
 platforms: [linux/amd64, linux/arm64]
 registry:
   repository: ghcr.io/nickkostov/base-images/nginx
