@@ -26,5 +26,5 @@ security:
   require_sbom: true
   require_provenance: true
 tags:
-  - 2.334.0-ubuntu26.04
+  - 2.336.0-ubuntu26.04
   - ubuntu26.04
