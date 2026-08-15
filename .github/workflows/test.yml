@@ -5,7 +5,7 @@ on:
 
 jobs:
   ubuntu-2404:
-    runs-on: docker-ubuntu-2604
+    runs-on: docker-ubuntu-2404
     steps:
       - name: Check runner
         run: |
