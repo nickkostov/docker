@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   prepare:
-    runs-on: docker-ubuntu-2404
+    runs-on: docker-ubuntu-2604
     outputs:
       directory: ${{ steps.image.outputs.directory }}
       repository: ${{ steps.image.outputs.repository }}
