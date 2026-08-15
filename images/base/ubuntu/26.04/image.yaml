@@ -2,15 +2,29 @@ name: ubuntu
 variant: base
 version: "26.04"
 description: Organization-approved Ubuntu 26.04 Resolute Raccoon base image.
-owners: [platform-engineering]
+owners:
+  - platform-engineering
 upstream:
   image: docker.io/library/ubuntu
   tag: "26.04"
   digest: sha256:678c6550cc43645e08669028bc177f50be4e7c5b8cca677067b1914d4afc7a03
-platforms: [linux/amd64, linux/arm64]
+platforms:
+  - linux/amd64
+  - linux/arm64
 registry:
   repository: ghcr.io/nickkostov/base-images/ubuntu
-user: {uid: 10001, gid: 10001}
-lifecycle: {status: supported, support_until: "2031-05-31"}
-security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: ["26.04", "26.04-stable"]
+user:
+  uid: 10001
+  gid: 10001
+lifecycle:
+  status: supported
+  support_until: "2031-05-31"
+security:
+  maximum_severity: high
+  fail_on_fixable: true
+  require_signature: true
+  require_sbom: true
+  require_provenance: true
+tags:
+  - "26.04"
+  - 26.04-stable

@@ -14,8 +14,16 @@ while IFS= read -r metadata; do
     echo "ERROR: $metadata runtime images must declare an approved base image" >&2
     errors=$((errors + 1))
   fi
-  if ! grep -Eq 'digest:[[:space:]]*sha256:[0-9a-f]{64}' "$metadata"; then
-    echo "ERROR: $metadata must contain a verified sha256 digest" >&2
+  digest_count=0
+  while IFS= read -r digest; do
+    digest_count=$((digest_count + 1))
+    if ! [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+      echo "ERROR: $metadata contains an unverified digest: $digest" >&2
+      errors=$((errors + 1))
+    fi
+  done < <(awk '$1 == "digest:" {print $2}' "$metadata")
+  if (( digest_count == 0 )); then
+    echo "ERROR: $metadata must contain at least one verified sha256 digest" >&2
     errors=$((errors + 1))
   fi
   if grep -Eq '(^|:) latest($|[[:space:]])' "$metadata"; then

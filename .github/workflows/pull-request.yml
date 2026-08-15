@@ -2,7 +2,7 @@ name: Validate container images
 
 on:
   pull_request:
-    paths: ["images/**", "policies/**", "schemas/**", "scripts/**", ".github/workflows/**", "Makefile"]
+    paths: ["images/**", "policies/**", "schemas/**", "scripts/**", "src/**", "tests/**", ".github/workflows/**", "Makefile", "pyproject.toml"]
 
 permissions:
   contents: read
@@ -12,5 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install repository tooling
+        run: python3 -m pip install .
+      - name: Validate YAML and schema behavior
+        run: python3 -m unittest discover -s tests
       - name: Validate metadata and Dockerfiles
         run: make validate

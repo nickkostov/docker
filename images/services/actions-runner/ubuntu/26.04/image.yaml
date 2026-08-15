@@ -1,16 +1,30 @@
 name: actions-runner
 variant: service
-version: "2.334.0-ubuntu26.04"
+version: 2.334.0-ubuntu26.04
 description: Organization GitHub Actions runner 2.334.0 on Ubuntu 26.04.
-owners: [platform-engineering]
+owners:
+  - platform-engineering
 upstream:
   image: ghcr.io/nickkostov/base-images/ubuntu
   tag: "26.04"
   digest: sha256:2d6b09248c9a40fbb703dee768af33002c7555b4f0f69c82a8bb6b4b52f4421c
-platforms: [linux/amd64, linux/arm64]
+platforms:
+  - linux/amd64
+  - linux/arm64
 registry:
   repository: ghcr.io/nickkostov/base-images/actions-runner
-user: {uid: 1000, gid: 1000}
-lifecycle: {status: supported, support_until: "2027-12-31"}
-security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: ["2.334.0-ubuntu26.04", "ubuntu26.04"]
+user:
+  uid: 1000
+  gid: 1000
+lifecycle:
+  status: supported
+  support_until: "2027-12-31"
+security:
+  maximum_severity: high
+  fail_on_fixable: true
+  require_signature: true
+  require_sbom: true
+  require_provenance: true
+tags:
+  - 2.334.0-ubuntu26.04
+  - ubuntu26.04

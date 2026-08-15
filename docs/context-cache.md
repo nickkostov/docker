@@ -20,7 +20,9 @@ model; `.github/workflows/` CI; `src/inspectur/` metadata inventory CLI;
 ## Rules
 Pin upstreams by verified digest. Use numeric non-root users. Keep builders
 separate from runtimes. Never use `latest`, bake secrets into layers, or
-rebuild during promotion. Production references record image digests.
+rebuild during promotion. Production references record image digests. Keep
+`image.yaml` nested mappings and lists in block style; validate them against
+`schemas/image.schema.json`.
 
 ## Decisions
 Use one central catalog, metadata-driven discovery, immutable build tags,

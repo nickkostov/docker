@@ -2,7 +2,8 @@ name: java
 variant: runtime
 version: "21"
 description: Organization-approved Java 21 runtime image.
-owners: [platform-engineering]
+owners:
+  - platform-engineering
 base:
   repository: ghcr.io/nickkostov/base-images/debian
   tag: "13"
@@ -10,11 +11,24 @@ base:
 upstream:
   image: docker.io/library/eclipse-temurin
   tag: 21-jre
-  digest: sha256:REPLACE_WITH_VERIFIED_DIGEST
-platforms: [linux/amd64, linux/arm64]
+  digest: sha256:371da296b8cb74c7e53fbe7083d5374befc0011b493231d97d45fa789915e434
+platforms:
+  - linux/amd64
+  - linux/arm64
 registry:
   repository: ghcr.io/nickkostov/base-images/java
-user: {uid: 10001, gid: 10001}
-lifecycle: {status: supported, support_until: "2028-09-30"}
-security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: ["21", "21-stable"]
+user:
+  uid: 10001
+  gid: 10001
+lifecycle:
+  status: supported
+  support_until: "2028-09-30"
+security:
+  maximum_severity: high
+  fail_on_fixable: true
+  require_signature: true
+  require_sbom: true
+  require_provenance: true
+tags:
+  - "21"
+  - 21-stable

@@ -1,6 +1,7 @@
 # Documentation
 
 - [Architecture](architecture.md)
+- [Image metadata](image-metadata.md)
 - [Onboarding](onboarding.md)
 - [Versioning](versioning.md)
 - [Security model](security-model.md)

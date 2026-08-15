@@ -1,0 +1,5 @@
+{
+  "prompt": "Correct the YAML in all image.yaml files.",
+  "response": "Normalized every image.yaml definition to readable block-style YAML while preserving existing metadata and user edits. Fixed the JSON Schema security object, which previously required five security fields while rejecting all of them as additional properties, and documented the optional metadata URL. Replaced public Node, Eclipse Temurin, and Python placeholders with registry-verified manifest digests. All 22 files parse as YAML and have no structural schema errors. Three runtime base digest placeholders remain because the private Debian 13 GHCR package returned 403. Metadata validation now checks every digest instead of accepting a file when only one digest is valid.",
+  "sensitive_data": "[REDACTED]"
+}

@@ -1,16 +1,30 @@
 name: busybox
 variant: base
-version: "1.37.0"
+version: 1.37.0
 description: Organization-approved BusyBox 1.37.0 base image.
-owners: [platform-engineering]
+owners:
+  - platform-engineering
 upstream:
   image: docker.io/library/busybox
-  tag: "1.37.0"
+  tag: 1.37.0
   digest: sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0
-platforms: [linux/amd64, linux/arm64]
+platforms:
+  - linux/amd64
+  - linux/arm64
 registry:
   repository: ghcr.io/nickkostov/base-images/busybox
-user: {uid: 10001, gid: 10001}
-lifecycle: {status: supported, support_until: "2027-12-31"}
-security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: ["1.37.0", "1.37"]
+user:
+  uid: 10001
+  gid: 10001
+lifecycle:
+  status: supported
+  support_until: "2027-12-31"
+security:
+  maximum_severity: high
+  fail_on_fixable: true
+  require_signature: true
+  require_sbom: true
+  require_provenance: true
+tags:
+  - 1.37.0
+  - "1.37"

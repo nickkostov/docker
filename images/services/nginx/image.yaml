@@ -2,15 +2,28 @@ name: nginx
 variant: service
 version: current
 description: Organization-approved Nginx web-server image.
-owners: [platform-engineering]
+owners:
+  - platform-engineering
 upstream:
   image: docker.io/library/nginx
   tag: 1.30.4
   digest: sha256:46ccc48fbb1f5a43167f2ee2c279c122b96eec5d976e7f4e1e0780f59a51b4d6
-platforms: [linux/amd64, linux/arm64]
+platforms:
+  - linux/amd64
+  - linux/arm64
 registry:
   repository: ghcr.io/nickkostov/base-images/nginx
-user: {uid: 10001, gid: 10001}
-lifecycle: {status: supported, support_until: "2027-12-31"}
-security: {maximum_severity: high, fail_on_fixable: true, require_signature: true, require_sbom: true, require_provenance: true}
-tags: [stable]
+user:
+  uid: 10001
+  gid: 10001
+lifecycle:
+  status: supported
+  support_until: "2027-12-31"
+security:
+  maximum_severity: high
+  fail_on_fixable: true
+  require_signature: true
+  require_sbom: true
+  require_provenance: true
+tags:
+  - stable
