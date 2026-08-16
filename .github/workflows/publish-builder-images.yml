@@ -11,7 +11,9 @@ on:
         options:
           - alpine
           - busybox
-        default: alpine
+          - debian
+          - ubuntu
+        default: ubuntu
       version:
         description: Optional version; leave blank to publish every configured version
         required: false
@@ -43,6 +45,8 @@ jobs:
           case "$IMAGE" in
             alpine) definition=images/base/alpine/images.yaml ;;
             busybox) definition=images/base/busybox/images.yaml ;;
+            debian) definition=images/base/debian/images.yaml ;;
+            ubuntu) definition=images/base/ubuntu/images.yaml ;;
             *) echo "Unsupported Builder image: $IMAGE" >&2; exit 1 ;;
           esac
           echo "BUILDER_DEFINITION=$definition" >> "$GITHUB_ENV"
