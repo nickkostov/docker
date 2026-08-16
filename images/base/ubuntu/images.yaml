@@ -19,11 +19,10 @@ versions:
       support_until: "2030-05-31"
     platforms:
       - linux/amd64
-      - linux/arm64
     push_registries:
       ghcr:
         repository: ghcr.io/nickkostov/base-images/ubuntu
     additional_tags:
       - "20.04"
-      - 20.04-maintenance
-      - 20.04-focal-fossa
+      - 20.04-maintenance-amd64
+      - 20.04-focal-fossa-amd64
