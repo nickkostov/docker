@@ -1,0 +1,29 @@
+name: ubuntu
+variant: base
+description: Ubuntu Base images of Nick Kostov
+template: Dockerfile.template
+user:
+  name: app
+  uid: 1002
+  gid: 1002
+  workdir: /app
+  shell: /sbin/nologin
+versions:
+  "20.04":
+    upstream:
+      image: docker.io/library/ubuntu
+      tag: "20.04"
+      digest: sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
+    lifecycle:
+      status: supported
+      support_until: "2030-05-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/ubuntu
+    additional_tags:
+      - "20.04"
+      - 20.04-maintenance
+      - 20.04-focal-fossa

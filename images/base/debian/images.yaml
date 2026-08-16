@@ -1,0 +1,47 @@
+name: debian
+variant: base
+description: Debian Base images of Nick Kostov
+template: Dockerfile.template
+user:
+  name: app
+  uid: 1002
+  gid: 1002
+  workdir: /app
+  shell: /sbin/nologin
+versions:
+  "12":
+    upstream:
+      image: docker.io/library/debian
+      tag: "bookworm-slim"
+      digest: sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818
+    lifecycle:
+      status: supported
+      support_until: "2028-06-30"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/debian
+    additional_tags:
+      - "12"
+      - 12-maintenance
+      - 12-bookworm-slim
+  "13":
+    upstream:
+      image: docker.io/library/debian
+      tag: "trixie-slim"
+      digest: sha256:020c0d20b9880058cbe785a9db107156c3c75c2ac944a6aa7ab59f2add76a7bd
+    lifecycle:
+      status: supported
+      support_until: "2030-08-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/debian
+    additional_tags:
+      - "13"
+      - 13-stable
+      - 13-trixie-slim
