@@ -7,9 +7,10 @@ images. It intentionally supports only three image classes:
 - `runtime` — language runtimes such as Node.js, Java, and Python;
 - `service` — custom or rebuilt images approved for direct organizational use.
 
-Image definitions are discovered from `images/**/image.yaml`; the Dockerfile
-and structure-test configuration beside each definition are the build and test
-inputs.
+Image definitions can use either an individual `images/**/image.yaml` or a
+compact family-level `images.yaml`. Builder expands the latter into temporary
+versioned build contexts. Alpine is the reference implementation; this lets CI
+build every declared version without storing repeated Dockerfiles in Git.
 
 The flow is:
 

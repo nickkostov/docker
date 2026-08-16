@@ -1,0 +1,79 @@
+name: alpine
+variant: base
+description: Alpine Base images of Nick Kostov
+template: Dockerfile.template
+user:
+  name: app
+  uid: 1002
+  gid: 1002
+  workdir: /app
+  shell: /sbin/nologin
+versions:
+  "3.21":
+    upstream:
+      image: docker.io/library/alpine
+      tag: "3.21"
+      digest: sha256:48b0309ca019d89d40f670aa1bc06e426dc0931948452e8491e3d65087abc07d
+    lifecycle:
+      status: maintenance
+      support_until: "2026-11-01"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/alpine
+    additional_tags:
+      - "3.21"
+      - 3.21-maintenance
+  "3.22":
+    upstream:
+      image: docker.io/library/alpine
+      tag: "3.22"
+      digest: sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce
+    lifecycle:
+      status: supported
+      support_until: "2027-05-01"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/alpine
+    additional_tags:
+      - "3.22"
+      - 3.22-stable
+  "3.23":
+    upstream:
+      image: docker.io/library/alpine
+      tag: "3.23"
+      digest: sha256:fd791d74b68913cbb027c6546007b3f0d3bc45125f797758156952bc2d6daf40
+    lifecycle:
+      status: supported
+      support_until: "2027-11-01"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/alpine
+    additional_tags:
+      - "3.23"
+      - 3.23-stable
+  "3.24":
+    upstream:
+      image: docker.io/library/alpine
+      tag: "3.24"
+      digest: sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
+    lifecycle:
+      status: supported
+      support_until: "2028-06-01"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/alpine
+    additional_tags:
+      - "3.24"
+      - 3.24-stable

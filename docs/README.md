@@ -10,5 +10,6 @@
 - [Runtime matrix](runtime-matrix.md)
 - [Node.js runtime images](node-runtime.md)
 - [Inspectur repository CLI](inspectur.md)
+- [Builder CLI](builder.md)
 - [Publishing with GitHub Actions](publishing.md)
 - [Emergency rebuild](emergency-rebuild.md)

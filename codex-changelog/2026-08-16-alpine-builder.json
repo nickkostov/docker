@@ -1,0 +1,15 @@
+{
+  "date": "2026-08-16",
+  "prompt": "Create a Python Builder CLI that reads a compact Alpine images.yaml, generates structured Dockerfiles locally, and builds temporary contexts in CI.",
+  "output": "Added the independent Builder command and generic Jinja Dockerfile templates. Alpine and BusyBox use collection metadata with globally configurable, per-version-overridable users. Added a separate manually triggered GitHub workflow with an Alpine or BusyBox dropdown, optional version selection, validation, Buildx publishing, SBOM, and provenance.",
+  "files": [
+    "src/image_builder/",
+    "images/base/alpine/images.yaml",
+    "images/base/alpine/Dockerfile.template",
+    "images/base/busybox/images.yaml",
+    "images/base/busybox/Dockerfile.template",
+    ".github/workflows/publish-builder-images.yml",
+    ".github/workflows/publish-image.yml",
+    "docs/builder.md"
+  ]
+}

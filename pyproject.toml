@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "inspectur"
 version = "0.1.0"
-description = "Terminal inventory helper for this container image repository"
+description = "Inventory and build tools for this container image repository"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
   "click>=8.1,<9",
+  "Jinja2>=3.1,<4",
   "jsonschema>=4.23,<5",
   "PyYAML>=6,<7",
   "rich>=13.7,<15",
@@ -17,6 +18,7 @@ dependencies = [
 
 [project.scripts]
 inspectur = "inspectur.cli:cli"
+builder = "image_builder.cli:cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]

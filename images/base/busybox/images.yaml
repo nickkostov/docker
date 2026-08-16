@@ -1,0 +1,45 @@
+name: busybox
+variant: base
+description: Busybox Base images of Nick Kostov
+template: Dockerfile.template
+user:
+  name: app
+  uid: 1002
+  gid: 1002
+  workdir: /app
+  shell: /sbin/nologin
+versions:
+  "1.37.0":
+    upstream:
+      image: docker.io/library/busybox
+      tag: "1.37.0"
+      digest: sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0
+    lifecycle:
+      status: supported
+      support_until: "2027-12-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/busybox
+    additional_tags:
+      - "1.37.0"
+      - 1.37.0-maintenance
+  "1.38.0":
+    upstream:
+      image: docker.io/library/busybox
+      tag: 1.38.0
+      digest: sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616
+    lifecycle:
+      status: supported
+      support_until: "2027-12-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/busybox
+    additional_tags:
+      - "1.38.0"
+      - 1.38.0-stable

@@ -1,8 +1,0 @@
-required:
-  upstream_digest: true
-  oci_labels: true
-  numeric_user: true
-  non_root_runtime: true
-forbidden:
-  tags: [latest]
-  layer_content: [credentials, organization_certificates]

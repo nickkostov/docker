@@ -7,6 +7,10 @@ security requirements, owners, and pinned upstream digest together under
 `images/`. CI validates metadata and Dockerfile policy before an image can be
 published.
 
+Alpine also demonstrates the lightweight collection model: one authored
+`images.yaml` can generate all versioned build contexts locally or build them
+directly from temporary contexts in CI.
+
 ## Repository layout
 
 - `images/base/` - approved operating-system foundations
@@ -38,6 +42,20 @@ inspectur --help
 Running `inspectur` without a command displays the complete image inventory.
 See [the Inspectur guide](docs/inspectur.md) for filters, readiness checks, and
 runtime matrix views.
+
+## Builder CLI
+
+Install Builder and preview an Alpine build:
+
+```sh
+make builder-install
+source .venv/bin/activate
+builder build images/base/alpine/images.yaml --version 3.24 --dry-run
+```
+
+Use `builder generate` when you want to inspect materialized Dockerfiles, or
+`builder build` to build from temporary contexts without adding generated files
+to the repository. See [the Builder guide](docs/builder.md).
 
 An upstream digest must be replaced with a registry-verified value before an
 image is buildable or publishable. Production consumers should pin the

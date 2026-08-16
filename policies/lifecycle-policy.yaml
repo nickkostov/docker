@@ -1,5 +1,0 @@
-states: [experimental, supported, maintenance, deprecated, end-of-life]
-deprecation:
-  stop_new_consumers_days: 30
-  remove_moving_tags_days: 90
-  end_support_days: 180

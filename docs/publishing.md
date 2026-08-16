@@ -5,6 +5,13 @@ GitHub Actions workflows. Each workflow requires a
 verified upstream digest, builds both `linux/amd64` and `linux/arm64`, pushes
 an immutable tag, and emits SBOM and provenance attestations.
 
+The separate **Publish Builder base images** workflow handles the collection
+model. Select `alpine` or `busybox` from its dropdown and optionally enter one
+version. Leaving the version blank validates and publishes every version listed
+in the selected `images.yaml`. The workflow resolves only fixed repository
+paths, installs Builder, validates the collection, and runs `builder build
+--ci` after Buildx and GHCR authentication are configured.
+
 From the GitHub Actions tab:
 
 1. Select one of the three workflows: **Publish base image**, **Publish runtime image**, or **Publish service image**.
@@ -18,6 +25,13 @@ From the GitHub Actions tab:
 The workflow uses the repository `GITHUB_TOKEN`; it needs `packages: write`,
 `attestations: write`, and `id-token: write` permissions. Pull requests only
 validate and never publish.
+
+Alpine publishing is resolved dynamically from
+`images/base/alpine/images.yaml`. The workflow installs the Python `builder`
+command and runs `builder build ... --ci`; therefore adding an Alpine version
+does not require another committed Dockerfile or a hard-coded workflow case.
+Builder creates temporary contexts, pushes the declared tags, and asks Buildx
+for SBOM and provenance attestations.
 
 Each publication creates two tags from the same digest. The selected image
 type is routed to its dedicated workflow:

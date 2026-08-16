@@ -40,16 +40,16 @@ images:
     path: images/services/actions-runner/ubuntu/26.04
     status: supported
   - name: alpine
-    path: images/base/alpine/3.24
+    path: images/base/alpine/images.yaml
     status: supported
   - name: alpine
-    path: images/base/alpine/3.23
+    path: images/base/alpine/images.yaml
     status: supported
   - name: alpine
-    path: images/base/alpine/3.22
+    path: images/base/alpine/images.yaml
     status: supported
   - name: alpine
-    path: images/base/alpine/3.21
+    path: images/base/alpine/images.yaml
     status: maintenance
   - name: busybox
     path: images/base/busybox/1.38.0

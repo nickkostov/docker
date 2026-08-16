@@ -5,6 +5,11 @@ Every image definition is stored in `images/**/image.yaml` and validated against
 nested mappings and lists so definitions remain readable and produce useful
 line-level diffs.
 
+Repeated image families may instead use one family-level `images.yaml` with a
+`versions` mapping. Builder validates and expands that source into the same
+per-version metadata shape. Alpine is the first collection-based family; see
+[Builder CLI](builder.md).
+
 Each definition records:
 
 - image identity, variant, version, description, and owners;

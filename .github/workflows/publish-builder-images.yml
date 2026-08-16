@@ -1,0 +1,75 @@
+name: Publish Builder base images
+run-name: Publish ${{ inputs.image }}${{ inputs.version && format(':{0}', inputs.version) || ':all' }} with Builder
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: Base image family
+        required: true
+        type: choice
+        options:
+          - alpine
+          - busybox
+        default: alpine
+      version:
+        description: Optional version; leave blank to publish every configured version
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+concurrency:
+  group: publish-builder-${{ inputs.image }}-${{ inputs.version || 'all' }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Resolve selected collection
+        env:
+          IMAGE: ${{ inputs.image }}
+        run: |
+          set -euo pipefail
+          case "$IMAGE" in
+            alpine) definition=images/base/alpine/images.yaml ;;
+            busybox) definition=images/base/busybox/images.yaml ;;
+            *) echo "Unsupported Builder image: $IMAGE" >&2; exit 1 ;;
+          esac
+          echo "BUILDER_DEFINITION=$definition" >> "$GITHUB_ENV"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4.2.0
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Builder
+        run: python3 -m pip install .
+
+      - name: Validate selected collection
+        run: builder validate "$BUILDER_DEFINITION"
+
+      - name: Build and publish
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          builder_args=(build "$BUILDER_DEFINITION" --ci)
+          if [[ -n "$VERSION" ]]; then
+            builder_args+=(--version "$VERSION")
+          fi
+          builder "${builder_args[@]}"
