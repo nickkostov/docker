@@ -16,13 +16,49 @@ versions:
       digest: sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
     lifecycle:
       status: supported
-      support_until: "2030-05-31"
+      support_until: "2025-05-31"
     platforms:
       - linux/amd64
+      - linux/arm64
     push_registries:
       ghcr:
         repository: ghcr.io/nickkostov/base-images/ubuntu
     additional_tags:
       - "20.04"
-      - 20.04-maintenance-amd64
+      - 20.04-unsupported-amd64
       - 20.04-focal-fossa-amd64
+  "22.04":
+    upstream:
+      image: docker.io/library/ubuntu
+      tag: "22.04"
+      digest: sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
+    lifecycle:
+      status: supported
+      support_until: "2027-05-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/ubuntu
+    additional_tags:
+      - "22.04"
+      - 22.04-stable
+      - 22.04-jammy-jellyfish
+  "24.04":
+    upstream:
+      image: docker.io/library/ubuntu
+      tag: "22.04"
+      digest: sha256:561618e2c15bf2397621dd04f96926663a3b5616c189cf7e38db7e82f5c538ea
+      status: supported
+      support_until: "2029-05-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/ubuntu
+    additional_tags:
+      - "24.04"
+      - 24.04-stable
+      - 24.04-noble-numbat
