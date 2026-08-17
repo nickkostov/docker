@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-# check=skip=InvalidDefaultArgInFrom
 ARG UPSTREAM_IMAGE
 FROM ${UPSTREAM_IMAGE}
 ARG RUNNER_VERSION=2.336.0

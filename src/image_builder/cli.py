@@ -17,6 +17,7 @@ from image_builder.core import (
     load_collection,
     render_dockerfile,
     render_image,
+    resolve_context_files,
     select_versions,
 )
 
@@ -122,7 +123,7 @@ def generate(
         source, images = selected_images(definition, versions)
         template_text = load_template(source, template)
         for image in images:
-            directory = render_image(image, output.resolve(), template_text)
+            directory = render_image(image, output.resolve(), template_text, source.parent)
             click.echo(f"generated {directory}")
         click.echo(f"source: {source}")
     except BuilderError as error:
@@ -151,7 +152,7 @@ def build(
         with tempfile.TemporaryDirectory(prefix="builder-") as temporary:
             output = Path(temporary)
             for image in images:
-                context = render_image(image, output, template_text)
+                context = render_image(image, output, template_text, source.parent)
                 command = (
                     ci_command(image, context, build_date, git_revision, timestamp)
                     if ci
@@ -176,6 +177,7 @@ def validate(definition: Path | None) -> None:
         template_text = load_template(source, None)
         for image in images:
             render_dockerfile(image, template_text)
+            resolve_context_files(image, source.parent)
         click.echo(f"valid: {source} ({len(images)} versions)")
     except BuilderError as error:
         raise click.ClickException(str(error)) from error

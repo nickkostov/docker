@@ -33,6 +33,11 @@ does not require another committed Dockerfile or a hard-coded workflow case.
 Builder creates temporary contexts, pushes the declared tags, and asks Buildx
 for SBOM and provenance attestations.
 
+Builder-managed services use the separate **Publish Builder service images**
+workflow. It currently exposes the `actions-runner` service and an optional
+Ubuntu-version input. The workflow validates the selected collection before
+running the same digest-pinned, multi-platform `builder build --ci` path.
+
 Each publication creates two tags from the same digest. The selected image
 type is routed to its dedicated workflow:
 

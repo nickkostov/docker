@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import shutil
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -145,6 +146,21 @@ def expand_collection(data: dict[str, Any]) -> list[ExpandedImage]:
             or ABSOLUTE_PATH_RE.fullmatch(str(user.get("shell", ""))) is None
         ):
             raise BuilderError(f"version {version} has an invalid user configuration")
+        global_params = data.get("params", {})
+        version_params = entry.get("params", {})
+
+        if not isinstance(global_params, dict):
+            raise BuilderError("Global Params Must be a mapping")
+
+        if not isinstance(version_params, dict):
+            raise BuilderError(
+                f"version {version} params override must be a mapping"
+            )
+
+        params = {
+            **global_params,
+            **version_params,
+        }
 
         metadata = {
             **{key: value for key, value in data.items() if key != "versions"},
@@ -153,6 +169,7 @@ def expand_collection(data: dict[str, Any]) -> list[ExpandedImage]:
             "variant": data["variant"],
             "version": version,
             "description": data["description"],
+            "params": params,
             "owners": data.get("owners", DEFAULT_OWNERS),
             "upstream": upstream,
             "platforms": platforms,
@@ -176,11 +193,18 @@ def select_versions(images: list[ExpandedImage], versions: tuple[str, ...]) -> l
     return [by_version[version] for version in versions]
 
 
-def render_dockerfile(image: ExpandedImage, template_text: str) -> str:
-    context = {
+def render_dockerfile(
+        image: ExpandedImage,
+        template_text: str
+) -> str:
+    image_context = {
         **image.metadata,
         "user": image.build_user,
         "repositories": image.repositories,
+    }
+    context = {
+        **image_context,
+        "image": image_context,
     }
     try:
         environment = Environment(
@@ -188,15 +212,55 @@ def render_dockerfile(image: ExpandedImage, template_text: str) -> str:
             keep_trailing_newline=True,
             undefined=StrictUndefined,
         )
-        return environment.from_string(template_text).render(**context)
+        return environment.from_string(template_text).render(
+            **context
+        )
     except TemplateError as error:
-        raise BuilderError(f"cannot render Dockerfile for {image.version}: {error}") from error
+        raise BuilderError(
+            f"cannot render Dockerfile for {image.version}: {error}"
+        ) from error
 
 
-def render_image(image: ExpandedImage, output_root: Path, template_text: str) -> Path:
+def resolve_context_files(image: ExpandedImage, source_root: Path) -> list[tuple[Path, Path]]:
+    configured_files = image.metadata.get("context_files", [])
+    if not isinstance(configured_files, list):
+        raise BuilderError("context_files must be a list of relative file paths")
+
+    resolved_root = source_root.resolve()
+    resolved_files: list[tuple[Path, Path]] = []
+    for configured_file in configured_files:
+        if not isinstance(configured_file, str) or not configured_file:
+            raise BuilderError("context_files entries must be non-empty strings")
+        relative_path = Path(configured_file)
+        if relative_path.is_absolute() or relative_path == Path("Dockerfile"):
+            raise BuilderError(f"invalid context file: {configured_file}")
+
+        source_path = (resolved_root / relative_path).resolve()
+        try:
+            source_path.relative_to(resolved_root)
+        except ValueError as error:
+            raise BuilderError(
+                f"context file escapes the collection directory: {configured_file}"
+            ) from error
+        if not source_path.is_file():
+            raise BuilderError(f"context file does not exist: {configured_file}")
+        resolved_files.append((source_path, relative_path))
+    return resolved_files
+
+
+def render_image(
+    image: ExpandedImage,
+    output_root: Path,
+    template_text: str,
+    source_root: Path,
+) -> Path:
     directory = output_root / str(image.metadata["name"]) / image.version
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "Dockerfile").write_text(
         render_dockerfile(image, template_text), encoding="utf-8"
     )
+    for source_path, relative_path in resolve_context_files(image, source_root):
+        destination = directory / relative_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, destination)
     return directory

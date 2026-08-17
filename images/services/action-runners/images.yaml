@@ -1,0 +1,69 @@
+name: actions-runner
+variant: service
+description: Actions runner image based on Ubuntu
+template: Dockerfile.template
+context_files:
+  - run.sh
+user:
+  name: runner
+  uid: 1000
+  gid: 1000
+  workdir: /home/runner
+  shell: /bin/bash
+params:
+  runner_version: "2.336.0"
+versions:
+  "22.04":
+    upstream:
+      image: ghcr.io/nickkostov/base-images/ubuntu
+      tag: "22.04"
+      digest: sha256:cc128a6bd0b86702c29a5f5a220e9238dbf47fedb11975b736cb64cb7114159b
+    lifecycle:
+      status: supported
+      support_until: "2027-12-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/actions-runner
+    additional_tags:
+      - "22.04"
+      - "22.04-stable-gh-runner-2.336.0"
+      - "22.04-gh-runner-2.336.0"
+  "24.04":
+    upstream:
+      image: ghcr.io/nickkostov/base-images/ubuntu
+      tag: "24.04"
+      digest: sha256:cc128a6bd0b86702c29a5f5a220e9238dbf47fedb11975b736cb64cb7114159b
+    lifecycle:
+      status: supported
+      support_until: "2027-12-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/actions-runner
+    additional_tags:
+      - "24.04"
+      - "24.04-stable-gh-runner-2.336.0"
+      - "24.04-gh-runner-2.336.0"
+  "26.04":
+    upstream:
+      image: ghcr.io/nickkostov/base-images/ubuntu
+      tag: "26.04"
+      digest: sha256:cc128a6bd0b86702c29a5f5a220e9238dbf47fedb11975b736cb64cb7114159b
+    lifecycle:
+      status: supported
+      support_until: "2027-12-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/actions-runner
+    additional_tags:
+      - "26.04"
+      - "26.04-stable-gh-runner-2.336.0"
+      - "26.04-gh-runner-2.336.0"

@@ -1,0 +1,14 @@
+{
+  "date": "2026-08-17",
+  "prompt": "Create a separate CI/CD workflow for Builder-managed service images.",
+  "output": "Added a manually triggered Builder service workflow for Actions Runner, generic safe context_files support for run.sh, corrected service metadata and template rendering, and documented the publishing path.",
+  "files": [
+    ".github/workflows/publish-builder-services.yml",
+    "images/services/action-runners/images.yaml",
+    "images/services/action-runners/Dockerfile.template",
+    "src/image_builder/core.py",
+    "src/image_builder/cli.py",
+    "docs/services.md",
+    "docs/publishing.md"
+  ]
+}

@@ -1,38 +1,35 @@
 # Context Cache
 
 ## Goal
-Maintain approved, reproducible, signed base, runtime, and service images.
+Maintain compact YAML-driven definitions that generate reproducible base,
+runtime, and service Docker images locally and in GitHub Actions.
 
 ## Stack
-Dockerfiles, YAML metadata, JSON Schema, shell validation, Python 3.10+, Click,
-Rich, PyYAML, GitHub Actions, OCI registry artifacts, and
-SBOM/provenance/signature tooling.
+Python 3.10+, Click, PyYAML, Jinja2, Docker/Buildx, YAML metadata, GitHub
+Actions, GHCR, SBOM, and provenance attestations.
 
 ## Files
-`images/` definitions, including Debian 11 bullseye, Debian 12 bookworm, and
-Debian 13 trixie plus Ubuntu 20.04, 22.04, 24.04, and 26.04; `catalog/`
-inventory; Alpine 3.21-3.24 and BusyBox 1.37.0-1.38.0 base definitions;
-service definitions such as Nginx; `policies/` controls;
-`schemas/` metadata contract; `scripts/` local automation; `docs/` operating
-model; `.github/workflows/` CI; `src/inspectur/` metadata inventory CLI;
-`src/image_builder/` collection expander/build CLI;
-`images/base/alpine/images.yaml` compact Alpine source; `pyproject.toml`
-installs `inspectur` and `builder`; `docs/node-runtime.md`
-documents the Node matrix and shared Dockerfile flow.
+`src/image_builder/` implements collection expansion, strict Jinja rendering,
+safe context-file copying, local builds, and CI publishing. Image families use
+`images.yaml` plus `Dockerfile.template`. `images/services/action-runners/`
+also declares `run.sh` through `context_files`. Base publishing is in
+`.github/workflows/publish-builder-images.yml`; service publishing is in
+`.github/workflows/publish-builder-services.yml`. `docs/builder.md` and
+`docs/publishing.md` document usage.
 
 ## Rules
-Pin upstreams by verified digest. Use numeric non-root users. Keep only base,
-runtime, and service image classes. Never use `latest`, bake secrets into
-layers, or rebuild during promotion. Production references record image digests. Keep
-`image.yaml` nested mappings and lists in block style; validate them against
-`schemas/image.schema.json`. Builder-generated files are derived output and are
-not committed.
+Pin every `FROM` image by verified digest. Keep configuration visible in YAML;
+global user and `params` values may be overridden per version. Generated
+Dockerfiles and temporary contexts are derived output. Context files must be
+relative, remain inside the collection directory, and cannot replace the
+generated Dockerfile. Never bake runner registration tokens or other secrets
+into images. Production deployments use published digests.
 
 ## Decisions
-Use one central catalog, metadata-driven discovery, immutable build tags,
-expiring vulnerability exceptions, and build-once/promote-by-digest. Inspectur
-reads `images/**/image.yaml` directly and treats unresolved upstream or runtime
-base digests as blocked. Builder expands Alpine's `versions` mapping, uses
-temporary contexts by default, and enables Buildx push/SBOM/provenance with
-`--ci`. Services are approved custom or rebuilt images for
-direct use, including thin rebuilds of pinned upstreams such as Nginx.
+Builder is independent of inventory tooling. Jinja templates receive flattened
+metadata and the `image` namespace. `builder generate` writes inspectable
+contexts; `builder build` uses temporary contexts; `--ci` performs
+multi-platform Buildx pushes with timestamped and moving tags, SBOM, and
+provenance. Actions Runner is a service built from approved Ubuntu images;
+`runner_version` is YAML-configured and `run.sh` is copied into its generated
+context. Base and service images use separate manually triggered workflows.

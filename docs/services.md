@@ -32,6 +32,9 @@ image** workflow. Additional web servers, databases, brokers, proxies, and
 observability services can be added there without cluttering the base-image
 workflow.
 
-The GitHub Actions runner is also published by the dedicated service workflow. It
-is available on Ubuntu 22.04, 24.04, and 26.04 and starts the runner through
-`run.sh`; registration secrets are supplied only at runtime.
+The GitHub Actions runner is published through the separate **Publish Builder
+service images** workflow in `.github/workflows/publish-builder-services.yml`.
+Select `actions-runner` and optionally an Ubuntu version; leaving the version
+blank publishes every configured variant. Builder renders the service
+Dockerfile and copies the declared `run.sh` context file into its temporary
+build directory. Registration secrets are supplied only at runtime.
