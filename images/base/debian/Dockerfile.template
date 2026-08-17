@@ -9,6 +9,9 @@ LABEL org.opencontainers.image.title="Organization Debian Base" \
   org.opencontainers.image.created="${BUILD_DATE}" \
   org.opencontainers.image.revision="${REVISION}" \
   org.opencontainers.image.source="https://github.com/nickkostov/docker"
-RUN addgroup -S -g {{ user.gid }} {{ user.name }} && adduser -S -D -H -u {{ user.uid }} -G {{ user.name }} -s {{ user.shell }} {{ user.name }}
+RUN groupadd --gid {{ user.gid }} {{ user.name }} \
+  && useradd --uid {{ user.uid }} --gid {{ user.gid }} --no-create-home --home-dir {{ user.workdir }} --shell {{ user.shell }} {{ user.name }} \
+  && mkdir -p {{ user.workdir }} \
+  && chown {{ user.uid }}:{{ user.gid }} {{ user.workdir }}
 WORKDIR {{ user.workdir }}
 USER {{ user.uid }}:{{ user.gid }}
