@@ -62,3 +62,20 @@ versions:
       - "24.04"
       - 24.04-stable
       - 24.04-noble-numbat
+  "26.04":
+    upstream:
+      image: docker.io/library/ubuntu
+      tag: "22.04"
+      digest: sha256:678c6550cc43645e08669028bc177f50be4e7c5b8cca677067b1914d4afc7a03
+      status: supported
+      support_until: "2031-05-31"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    push_registries:
+      ghcr:
+        repository: ghcr.io/nickkostov/base-images/ubuntu
+    additional_tags:
+      - "26.04"
+      - 26.04-stable
+      - 26.04-resolute-raccoon
