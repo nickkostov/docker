@@ -11,7 +11,7 @@ user:
   workdir: /home/runner
   shell: /bin/bash
 params:
-  runner_version: "v2.338.1"
+  runner_version: "2.338.1"
 versions:
   "22.04":
     upstream:
