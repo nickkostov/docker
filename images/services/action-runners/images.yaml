@@ -11,7 +11,7 @@ user:
   workdir: /home/runner
   shell: /bin/bash
 params:
-  runner_version: "2.336.0"
+  runner_version: "v2.338.1"
 versions:
   "22.04":
     upstream:
@@ -29,8 +29,8 @@ versions:
         repository: ghcr.io/nickkostov/base-images/actions-runner
     additional_tags:
       - "22.04"
-      - "22.04-stable-gh-runner-2.336.0"
-      - "22.04-gh-runner-2.336.0"
+      - "22.04-stable-gh-runner-v2.338.1"
+      - "22.04-gh-runner-v2.338.1"
   "24.04":
     upstream:
       image: ghcr.io/nickkostov/base-images/ubuntu
@@ -47,8 +47,8 @@ versions:
         repository: ghcr.io/nickkostov/base-images/actions-runner
     additional_tags:
       - "24.04"
-      - "24.04-stable-gh-runner-2.336.0"
-      - "24.04-gh-runner-2.336.0"
+      - "24.04-stable-gh-runner-v2.338.1"
+      - "24.04-gh-runner-v2.338.1"
   "26.04":
     upstream:
       image: ghcr.io/nickkostov/base-images/ubuntu
@@ -65,5 +65,5 @@ versions:
         repository: ghcr.io/nickkostov/base-images/actions-runner
     additional_tags:
       - "26.04"
-      - "26.04-stable-gh-runner-2.336.0"
-      - "26.04-gh-runner-2.336.0"
+      - "26.04-stable-gh-runner-v2.338.1"
+      - "26.04-gh-runner-v2.338.1"
